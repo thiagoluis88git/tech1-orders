@@ -1,0 +1,945 @@
+basePath: /
+definitions:
+  dto.Customer:
+    properties:
+      cpf:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+    required:
+    - cpf
+    - email
+    - name
+    type: object
+  dto.CustomerForm:
+    properties:
+      cpf:
+        type: string
+    required:
+    - cpf
+    type: object
+  dto.CustomerResponse:
+    properties:
+      id:
+        type: integer
+    type: object
+  dto.ExternalPaymentEvent:
+    properties:
+      resource:
+        type: string
+      topic:
+        type: string
+    type: object
+  dto.Order:
+    properties:
+      customerId:
+        type: integer
+      orderProducts:
+        items:
+          $ref: '#/definitions/dto.OrderProduct'
+        type: array
+      orderStatus:
+        type: string
+      paymentId:
+        type: integer
+      ticketNumber:
+        type: integer
+      totalPrice:
+        type: number
+    required:
+    - orderProducts
+    - paymentId
+    - totalPrice
+    type: object
+  dto.OrderProduct:
+    properties:
+      productId:
+        type: integer
+      productPrice:
+        type: number
+    required:
+    - productId
+    - productPrice
+    type: object
+  dto.OrderProductResponse:
+    properties:
+      description:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  dto.OrderResponse:
+    properties:
+      customerName:
+        type: string
+      deliveredAt:
+        type: string
+      doneAt:
+        type: string
+      notDeliveredAt:
+        type: string
+      orderDate:
+        type: string
+      orderId:
+        type: integer
+      orderProducts:
+        items:
+          $ref: '#/definitions/dto.OrderProductResponse'
+        type: array
+      orderStatus:
+        type: string
+      preparingAt:
+        type: string
+      ticketNumber:
+        type: integer
+    type: object
+  dto.Payment:
+    properties:
+      customerId:
+        type: integer
+      paymentType:
+        type: string
+      totalPrice:
+        type: number
+    required:
+    - paymentType
+    - totalPrice
+    type: object
+  dto.PaymentResponse:
+    properties:
+      paymentDate:
+        type: string
+      paymentGatewayId:
+        type: string
+      paymentId:
+        type: integer
+    type: object
+  dto.ProducImage:
+    properties:
+      imageUrl:
+        type: string
+    required:
+    - imageUrl
+    type: object
+  dto.ProductForm:
+    properties:
+      category:
+        type: string
+      comboProductsIds:
+        items:
+          type: integer
+        type: array
+      description:
+        type: string
+      id:
+        type: integer
+      images:
+        items:
+          $ref: '#/definitions/dto.ProducImage'
+        type: array
+      name:
+        type: string
+      price:
+        type: number
+    required:
+    - category
+    - description
+    - images
+    - name
+    - price
+    type: object
+  dto.ProductResponse:
+    properties:
+      category:
+        type: string
+      comboProducts:
+        items:
+          $ref: '#/definitions/dto.ProductResponse'
+        type: array
+      description:
+        type: string
+      id:
+        type: integer
+      images:
+        items:
+          $ref: '#/definitions/dto.ProducImage'
+        type: array
+      name:
+        type: string
+      price:
+        type: number
+    required:
+    - category
+    - description
+    - images
+    - name
+    - price
+    type: object
+  dto.QRCodeDataResponse:
+    properties:
+      data:
+        type: string
+    type: object
+  dto.QRCodeOrder:
+    properties:
+      customerId:
+        type: integer
+      orderProducts:
+        items:
+          $ref: '#/definitions/dto.OrderProduct'
+        type: array
+      orderStatus:
+        type: string
+      paymentID:
+        type: integer
+      ticketNumber:
+        type: integer
+      totalPrice:
+        type: number
+    required:
+    - orderProducts
+    - totalPrice
+    type: object
+  dto.Token:
+    properties:
+      accessToken:
+        type: string
+    type: object
+  dto.UserAdmin:
+    properties:
+      cpf:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+    required:
+    - cpf
+    - email
+    - name
+    type: object
+  dto.UserAdminForm:
+    properties:
+      cpf:
+        type: string
+    required:
+    - cpf
+    type: object
+  dto.UserAdminResponse:
+    properties:
+      id:
+        type: integer
+    type: object
+host: localshot:3210
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is the API for the Tech1 Fiap Project.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Tech1 API Docs
+  version: "1.0"
+paths:
+  /api/admin/customers/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Update customer
+      parameters:
+      - description: "12"
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: customer
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/dto.Customer'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Customer has required fields
+        "404":
+          description: Customer not found
+      summary: Update customer
+      tags:
+      - Customer
+  /api/admin/products:
+    post:
+      consumes:
+      - application/json
+      description: Create new product
+      parameters:
+      - description: product
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/dto.ProductForm'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.ProductResponse'
+        "400":
+          description: Product has required fields
+        "409":
+          description: This Product is already added
+      summary: Create new product
+      tags:
+      - Product
+  /api/admin/products/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a product by ID
+      parameters:
+      - description: "12"
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+      summary: Delete a product
+      tags:
+      - Product
+    put:
+      consumes:
+      - application/json
+      description: Update a product by ID
+      parameters:
+      - description: "12"
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+      summary: Update a product
+      tags:
+      - Product
+  /api/customers/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get customer by ID
+      parameters:
+      - description: "12"
+        in: path
+        name: Id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.Customer'
+        "404":
+          description: Customer not found
+      summary: Get customer by ID
+      tags:
+      - Customer
+  /api/customers/login:
+    post:
+      consumes:
+      - application/json
+      description: Get customer by CPF. This Endpoint can be used as a Login
+      parameters:
+      - description: customerForm
+        in: body
+        name: customer
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CustomerForm'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.Customer'
+        "404":
+          description: Customer not found
+      summary: Get customer by CPF
+      tags:
+      - Customer
+  /api/orders:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        Create new order. To make an order the payment needs to be completed
+        A new Ticket will be generated by the Order Date starting from 1
+        In the next day the Ticket number will starts from 1 and so on
+      parameters:
+      - description: order
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/dto.Order'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.OrderResponse'
+        "400":
+          description: Order has required fields
+      summary: Create new order
+      tags:
+      - Order
+  /api/orders/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get an order by Id
+      parameters:
+      - description: "12"
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.OrderResponse'
+        "400":
+          description: Order has required fields
+      summary: Get order by Id
+      tags:
+      - Order
+  /api/orders/{id}/delivered:
+    put:
+      consumes:
+      - application/json
+      description: Update an order. This service wil be used by the waiter to close
+        the order informing that user got its order
+      parameters:
+      - description: "12"
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Order not found
+        "428":
+          description: 'Precondition failed: Need to be with status Finalizado'
+      summary: Update an order to DELIVERED
+      tags:
+      - Order
+  /api/orders/{id}/done:
+    put:
+      consumes:
+      - application/json
+      description: Update an order. This service wil be used by the kitchen to notify
+        a customer and the waiter that the order is done
+      parameters:
+      - description: "12"
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Order not found
+        "428":
+          description: 'Precondition failed: Need to be with status Preparando'
+      summary: Update an order to DONE
+      tags:
+      - Order
+  /api/orders/{id}/not-delivered:
+    put:
+      consumes:
+      - application/json
+      description: Update an order. This service wil be used by the waiter to close
+        the order informing that user didn't get the order
+      parameters:
+      - description: "12"
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Order not found
+        "428":
+          description: 'Precondition failed: Need to be with status Finalizado'
+      summary: Update an order to NOT_DELIVERED
+      tags:
+      - Order
+  /api/orders/{id}/preparing:
+    put:
+      consumes:
+      - application/json
+      description: Update an order. This service wil be used by the kitchen to notify
+        a customer that the order is being prepared
+      parameters:
+      - description: "12"
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Order not found
+        "428":
+          description: 'Precondition failed: Need to be with status Criado'
+      summary: Update an order to PREPARING
+      tags:
+      - Order
+  /api/orders/status:
+    get:
+      consumes:
+      - application/json
+      description: Get all orders status by the waiter and the customer. This endpoint
+        will be used by the waiter and customer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.OrderResponse'
+            type: array
+      summary: Get all orders status different to prepare
+      tags:
+      - Order
+  /api/orders/to-prepare:
+    get:
+      consumes:
+      - application/json
+      description: Get all orders already payed that needs to be prepared. This endpoint
+        will be used by the kitchen
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.OrderResponse'
+            type: array
+      summary: Get all orders to prepare
+      tags:
+      - Order
+  /api/orders/waiting-payment:
+    get:
+      consumes:
+      - application/json
+      description: |-
+        Get all orders with waiting payment by the owner.
+        This endpoint will be used by the owner to know it the Mercado Livre QR Code was paid
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.OrderResponse'
+            type: array
+      summary: Get all orders with waiting payment status
+      tags:
+      - Order
+  /api/payments:
+    post:
+      consumes:
+      - application/json
+      description: Create a payment and return its ID. With it, we can proceed with
+        a Order Creation
+      parameters:
+      - description: payment
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/dto.Payment'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.PaymentResponse'
+        "400":
+          description: Payment has required fields
+      summary: Create new payment
+      tags:
+      - Payment
+  /api/payments/type:
+    get:
+      consumes:
+      - application/json
+      description: Get payment type, like [DEBIT, CREDIT, QR Code (Mercado Pago)]
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: string
+            type: array
+      summary: Get payment types
+      tags:
+      - Payment
+  /api/products/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get product by ID
+      parameters:
+      - description: "12"
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.ProductResponse'
+      summary: Get product by ID
+      tags:
+      - Product
+  /api/products/categories:
+    get:
+      consumes:
+      - application/json
+      description: Get all categories to filter in products by category
+      parameters:
+      - description: "12"
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: string
+            type: array
+      summary: Get all categories
+      tags:
+      - Product
+  /api/products/categories/{category}:
+    get:
+      consumes:
+      - application/json
+      description: List all products by a category
+      parameters:
+      - description: Lanches
+        in: path
+        name: category
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.ProductResponse'
+            type: array
+      summary: List all products by a category
+      tags:
+      - Product
+  /api/qrcode/generate:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        Generate a QR Code. This can be used to get the QR Code data, transform in a image and
+        pay with a Mercado Livre test account to activate a Webhook to proccess the order.
+      parameters:
+      - description: qrCodeOrder
+        in: body
+        name: qrCodeOrder
+        required: true
+        schema:
+          $ref: '#/definitions/dto.QRCodeOrder'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.QRCodeDataResponse'
+      summary: Generate a QR Code
+      tags:
+      - QRCode
+  /api/users/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get user by ID
+      parameters:
+      - description: "12"
+        in: path
+        name: Id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.UserAdmin'
+        "404":
+          description: User not found
+      summary: Get user by ID
+      tags:
+      - UserAdmin
+    put:
+      consumes:
+      - application/json
+      description: Update user
+      parameters:
+      - description: "12"
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: customer
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/dto.Customer'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: User has required fields
+        "404":
+          description: User not found
+      summary: Update user
+      tags:
+      - UserAdmin
+  /api/users/login:
+    post:
+      consumes:
+      - application/json
+      description: Get user by CPF. This Endpoint can be used as a Login
+      parameters:
+      - description: UserAdminForm
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UserAdminForm'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.UserAdmin'
+        "404":
+          description: User not found
+      summary: Get user by CPF
+      tags:
+      - UserAdmin
+  /api/webhook/ml/payment:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        Payment Webhook. This endpoint will be called when the user pays
+        the QRCode generated by /api/qrcode/generate [post]
+      parameters:
+      - description: externalPaymentEvent
+        in: body
+        name: externalPaymentEvent
+        required: true
+        schema:
+          $ref: '#/definitions/dto.ExternalPaymentEvent'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "406":
+          description: StatusNotAcceptable - Topic is not 'merchant_order'
+      summary: Payment Webhook
+      tags:
+      - Webhook
+  /auth/admin/login:
+    post:
+      consumes:
+      - application/json
+      description: Login the user by its CPF
+      parameters:
+      - description: user form
+        in: body
+        name: customer
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UserAdminForm'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.Token'
+        "404":
+          description: User not found
+      summary: Login
+      tags:
+      - UserAdmin
+  /auth/admin/signup:
+    post:
+      consumes:
+      - application/json
+      description: Create new customer. This process is not required to make an order
+      parameters:
+      - description: user admin
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UserAdmin'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.UserAdminResponse'
+        "400":
+          description: Customer has required fields
+        "409":
+          description: This user is already added
+      summary: Create new user admin
+      tags:
+      - UserAdmin
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Login the customer by its CPF
+      parameters:
+      - description: customer form
+        in: body
+        name: customer
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CustomerForm'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.Token'
+        "404":
+          description: Customer not found
+      summary: Login
+      tags:
+      - Customer
+  /auth/login/unknown:
+    post:
+      consumes:
+      - application/json
+      description: Login with unknown user. This is important if the user doesn't
+        want to create an account
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.Token'
+        "404":
+          description: Customer not found
+      summary: Login with unknown user
+      tags:
+      - Customer
+  /auth/signup:
+    post:
+      consumes:
+      - application/json
+      description: Create new customer. This process is not required to make an order
+      parameters:
+      - description: customer
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/dto.Customer'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.CustomerResponse'
+        "400":
+          description: Customer has required fields
+        "409":
+          description: This Customer is already added
+      summary: Create new customer
+      tags:
+      - Customer
+swagger: "2.0"

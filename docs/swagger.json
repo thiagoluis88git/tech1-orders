@@ -1,0 +1,1411 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is the API for the Tech1 Fiap Project.",
+        "title": "Tech1 API Docs",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "API Support",
+            "url": "http://www.swagger.io/support",
+            "email": "support@swagger.io"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "host": "localshot:3210",
+    "basePath": "/",
+    "paths": {
+        "/api/admin/customers/{id}": {
+            "put": {
+                "description": "Update customer",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Update customer",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "12",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "customer",
+                        "name": "product",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.Customer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Customer has required fields"
+                    },
+                    "404": {
+                        "description": "Customer not found"
+                    }
+                }
+            }
+        },
+        "/api/admin/products": {
+            "post": {
+                "description": "Create new product",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Create new product",
+                "parameters": [
+                    {
+                        "description": "product",
+                        "name": "product",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.ProductForm"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.ProductResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Product has required fields"
+                    },
+                    "409": {
+                        "description": "This Product is already added"
+                    }
+                }
+            }
+        },
+        "/api/admin/products/{id}": {
+            "put": {
+                "description": "Update a product by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Update a product",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "12",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete a product by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Delete a product",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "12",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/api/customers/login": {
+            "post": {
+                "description": "Get customer by CPF. This Endpoint can be used as a Login",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Get customer by CPF",
+                "parameters": [
+                    {
+                        "description": "customerForm",
+                        "name": "customer",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.CustomerForm"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.Customer"
+                        }
+                    },
+                    "404": {
+                        "description": "Customer not found"
+                    }
+                }
+            }
+        },
+        "/api/customers/{id}": {
+            "get": {
+                "description": "Get customer by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Get customer by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "12",
+                        "name": "Id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.Customer"
+                        }
+                    },
+                    "404": {
+                        "description": "Customer not found"
+                    }
+                }
+            }
+        },
+        "/api/orders": {
+            "post": {
+                "description": "Create new order. To make an order the payment needs to be completed\nA new Ticket will be generated by the Order Date starting from 1\nIn the next day the Ticket number will starts from 1 and so on",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Create new order",
+                "parameters": [
+                    {
+                        "description": "order",
+                        "name": "product",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.Order"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.OrderResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Order has required fields"
+                    }
+                }
+            }
+        },
+        "/api/orders/status": {
+            "get": {
+                "description": "Get all orders status by the waiter and the customer. This endpoint will be used by the waiter and customer",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Get all orders status different to prepare",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dto.OrderResponse"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/orders/to-prepare": {
+            "get": {
+                "description": "Get all orders already payed that needs to be prepared. This endpoint will be used by the kitchen",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Get all orders to prepare",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dto.OrderResponse"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/orders/waiting-payment": {
+            "get": {
+                "description": "Get all orders with waiting payment by the owner.\nThis endpoint will be used by the owner to know it the Mercado Livre QR Code was paid",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Get all orders with waiting payment status",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dto.OrderResponse"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/orders/{id}": {
+            "get": {
+                "description": "Get an order by Id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Get order by Id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "12",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.OrderResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Order has required fields"
+                    }
+                }
+            }
+        },
+        "/api/orders/{id}/delivered": {
+            "put": {
+                "description": "Update an order. This service wil be used by the waiter to close the order informing that user got its order",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Update an order to DELIVERED",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "12",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "404": {
+                        "description": "Order not found"
+                    },
+                    "428": {
+                        "description": "Precondition failed: Need to be with status Finalizado"
+                    }
+                }
+            }
+        },
+        "/api/orders/{id}/done": {
+            "put": {
+                "description": "Update an order. This service wil be used by the kitchen to notify a customer and the waiter that the order is done",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Update an order to DONE",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "12",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "404": {
+                        "description": "Order not found"
+                    },
+                    "428": {
+                        "description": "Precondition failed: Need to be with status Preparando"
+                    }
+                }
+            }
+        },
+        "/api/orders/{id}/not-delivered": {
+            "put": {
+                "description": "Update an order. This service wil be used by the waiter to close the order informing that user didn't get the order",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Update an order to NOT_DELIVERED",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "12",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "404": {
+                        "description": "Order not found"
+                    },
+                    "428": {
+                        "description": "Precondition failed: Need to be with status Finalizado"
+                    }
+                }
+            }
+        },
+        "/api/orders/{id}/preparing": {
+            "put": {
+                "description": "Update an order. This service wil be used by the kitchen to notify a customer that the order is being prepared",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Update an order to PREPARING",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "12",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "404": {
+                        "description": "Order not found"
+                    },
+                    "428": {
+                        "description": "Precondition failed: Need to be with status Criado"
+                    }
+                }
+            }
+        },
+        "/api/payments": {
+            "post": {
+                "description": "Create a payment and return its ID. With it, we can proceed with a Order Creation",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "Create new payment",
+                "parameters": [
+                    {
+                        "description": "payment",
+                        "name": "product",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.Payment"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.PaymentResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Payment has required fields"
+                    }
+                }
+            }
+        },
+        "/api/payments/type": {
+            "get": {
+                "description": "Get payment type, like [DEBIT, CREDIT, QR Code (Mercado Pago)]",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "Get payment types",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/categories": {
+            "get": {
+                "description": "Get all categories to filter in products by category",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get all categories",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "12",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/categories/{category}": {
+            "get": {
+                "description": "List all products by a category",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "List all products by a category",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Lanches",
+                        "name": "category",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dto.ProductResponse"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/{id}": {
+            "get": {
+                "description": "Get product by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get product by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "12",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.ProductResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/qrcode/generate": {
+            "post": {
+                "description": "Generate a QR Code. This can be used to get the QR Code data, transform in a image and\npay with a Mercado Livre test account to activate a Webhook to proccess the order.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "QRCode"
+                ],
+                "summary": "Generate a QR Code",
+                "parameters": [
+                    {
+                        "description": "qrCodeOrder",
+                        "name": "qrCodeOrder",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.QRCodeOrder"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.QRCodeDataResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/login": {
+            "post": {
+                "description": "Get user by CPF. This Endpoint can be used as a Login",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "UserAdmin"
+                ],
+                "summary": "Get user by CPF",
+                "parameters": [
+                    {
+                        "description": "UserAdminForm",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.UserAdminForm"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.UserAdmin"
+                        }
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            }
+        },
+        "/api/users/{id}": {
+            "get": {
+                "description": "Get user by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "UserAdmin"
+                ],
+                "summary": "Get user by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "12",
+                        "name": "Id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.UserAdmin"
+                        }
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            },
+            "put": {
+                "description": "Update user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "UserAdmin"
+                ],
+                "summary": "Update user",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "12",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "customer",
+                        "name": "product",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.Customer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "User has required fields"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            }
+        },
+        "/api/webhook/ml/payment": {
+            "post": {
+                "description": "Payment Webhook. This endpoint will be called when the user pays\nthe QRCode generated by /api/qrcode/generate [post]",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Webhook"
+                ],
+                "summary": "Payment Webhook",
+                "parameters": [
+                    {
+                        "description": "externalPaymentEvent",
+                        "name": "externalPaymentEvent",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.ExternalPaymentEvent"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "406": {
+                        "description": "StatusNotAcceptable - Topic is not 'merchant_order'"
+                    }
+                }
+            }
+        },
+        "/auth/admin/login": {
+            "post": {
+                "description": "Login the user by its CPF",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "UserAdmin"
+                ],
+                "summary": "Login",
+                "parameters": [
+                    {
+                        "description": "user form",
+                        "name": "customer",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.UserAdminForm"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.Token"
+                        }
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                }
+            }
+        },
+        "/auth/admin/signup": {
+            "post": {
+                "description": "Create new customer. This process is not required to make an order",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "UserAdmin"
+                ],
+                "summary": "Create new user admin",
+                "parameters": [
+                    {
+                        "description": "user admin",
+                        "name": "product",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.UserAdmin"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.UserAdminResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Customer has required fields"
+                    },
+                    "409": {
+                        "description": "This user is already added"
+                    }
+                }
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "description": "Login the customer by its CPF",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Login",
+                "parameters": [
+                    {
+                        "description": "customer form",
+                        "name": "customer",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.CustomerForm"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.Token"
+                        }
+                    },
+                    "404": {
+                        "description": "Customer not found"
+                    }
+                }
+            }
+        },
+        "/auth/login/unknown": {
+            "post": {
+                "description": "Login with unknown user. This is important if the user doesn't want to create an account",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Login with unknown user",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.Token"
+                        }
+                    },
+                    "404": {
+                        "description": "Customer not found"
+                    }
+                }
+            }
+        },
+        "/auth/signup": {
+            "post": {
+                "description": "Create new customer. This process is not required to make an order",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Create new customer",
+                "parameters": [
+                    {
+                        "description": "customer",
+                        "name": "product",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.Customer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.CustomerResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Customer has required fields"
+                    },
+                    "409": {
+                        "description": "This Customer is already added"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "dto.Customer": {
+            "type": "object",
+            "required": [
+                "cpf",
+                "email",
+                "name"
+            ],
+            "properties": {
+                "cpf": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.CustomerForm": {
+            "type": "object",
+            "required": [
+                "cpf"
+            ],
+            "properties": {
+                "cpf": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.CustomerResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "dto.ExternalPaymentEvent": {
+            "type": "object",
+            "properties": {
+                "resource": {
+                    "type": "string"
+                },
+                "topic": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.Order": {
+            "type": "object",
+            "required": [
+                "orderProducts",
+                "paymentId",
+                "totalPrice"
+            ],
+            "properties": {
+                "customerId": {
+                    "type": "integer"
+                },
+                "orderProducts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.OrderProduct"
+                    }
+                },
+                "orderStatus": {
+                    "type": "string"
+                },
+                "paymentId": {
+                    "type": "integer"
+                },
+                "ticketNumber": {
+                    "type": "integer"
+                },
+                "totalPrice": {
+                    "type": "number"
+                }
+            }
+        },
+        "dto.OrderProduct": {
+            "type": "object",
+            "required": [
+                "productId",
+                "productPrice"
+            ],
+            "properties": {
+                "productId": {
+                    "type": "integer"
+                },
+                "productPrice": {
+                    "type": "number"
+                }
+            }
+        },
+        "dto.OrderProductResponse": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.OrderResponse": {
+            "type": "object",
+            "properties": {
+                "customerName": {
+                    "type": "string"
+                },
+                "deliveredAt": {
+                    "type": "string"
+                },
+                "doneAt": {
+                    "type": "string"
+                },
+                "notDeliveredAt": {
+                    "type": "string"
+                },
+                "orderDate": {
+                    "type": "string"
+                },
+                "orderId": {
+                    "type": "integer"
+                },
+                "orderProducts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.OrderProductResponse"
+                    }
+                },
+                "orderStatus": {
+                    "type": "string"
+                },
+                "preparingAt": {
+                    "type": "string"
+                },
+                "ticketNumber": {
+                    "type": "integer"
+                }
+            }
+        },
+        "dto.Payment": {
+            "type": "object",
+            "required": [
+                "paymentType",
+                "totalPrice"
+            ],
+            "properties": {
+                "customerId": {
+                    "type": "integer"
+                },
+                "paymentType": {
+                    "type": "string"
+                },
+                "totalPrice": {
+                    "type": "number"
+                }
+            }
+        },
+        "dto.PaymentResponse": {
+            "type": "object",
+            "properties": {
+                "paymentDate": {
+                    "type": "string"
+                },
+                "paymentGatewayId": {
+                    "type": "string"
+                },
+                "paymentId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "dto.ProducImage": {
+            "type": "object",
+            "required": [
+                "imageUrl"
+            ],
+            "properties": {
+                "imageUrl": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.ProductForm": {
+            "type": "object",
+            "required": [
+                "category",
+                "description",
+                "images",
+                "name",
+                "price"
+            ],
+            "properties": {
+                "category": {
+                    "type": "string"
+                },
+                "comboProductsIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "images": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.ProducImage"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "number"
+                }
+            }
+        },
+        "dto.ProductResponse": {
+            "type": "object",
+            "required": [
+                "category",
+                "description",
+                "images",
+                "name",
+                "price"
+            ],
+            "properties": {
+                "category": {
+                    "type": "string"
+                },
+                "comboProducts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.ProductResponse"
+                    }
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "images": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.ProducImage"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "number"
+                }
+            }
+        },
+        "dto.QRCodeDataResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.QRCodeOrder": {
+            "type": "object",
+            "required": [
+                "orderProducts",
+                "totalPrice"
+            ],
+            "properties": {
+                "customerId": {
+                    "type": "integer"
+                },
+                "orderProducts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.OrderProduct"
+                    }
+                },
+                "orderStatus": {
+                    "type": "string"
+                },
+                "paymentID": {
+                    "type": "integer"
+                },
+                "ticketNumber": {
+                    "type": "integer"
+                },
+                "totalPrice": {
+                    "type": "number"
+                }
+            }
+        },
+        "dto.Token": {
+            "type": "object",
+            "properties": {
+                "accessToken": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.UserAdmin": {
+            "type": "object",
+            "required": [
+                "cpf",
+                "email",
+                "name"
+            ],
+            "properties": {
+                "cpf": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.UserAdminForm": {
+            "type": "object",
+            "required": [
+                "cpf"
+            ],
+            "properties": {
+                "cpf": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.UserAdminResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}

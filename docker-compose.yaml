@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  app:
+    container_name: fastfood-app
+    build: .
+    image: fastfood-app:0.0.2
+    restart: always
+    ports:
+      - "3210:3210"
+      - "3211:3211"
+    depends_on:
+      - database
+
+  database:
+    image: postgres:15.3-alpine
+    container_name: fastfood-database
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: fastfood1234
+      POSTGRES_USER: fastfood
+      POSTGRES_DB: fastfood_db

@@ -1,0 +1,967 @@
+{
+	"info": {
+		"_postman_id": "af5fc0ae-2b7d-479a-8824-df6e7126be3c",
+		"name": "Fiap Tech 1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34427842"
+	},
+	"item": [
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "Create Customer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "teste",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Teste 4\",\n    \"cpf\": \"28814129045\",\n    \"email\": \"teste4@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/signup",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User ADmin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "xyz987",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Teste 3\",\n    \"cpf\": \"66865407067\",\n    \"email\": \"teste4@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/admin/signup",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"admin",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer By ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJraWQiOiI4cXNoTjJVbkF3WjYwQnZSeG1yc2RqamJWMXZHOGNiXC9YbWVWREYrXC9HWkE9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI2NDY4NDQyOC1lMDIxLTcwZWMtNDMxNy1lYTlmMTM2NDk0YzEiLCJjb2duaXRvOmdyb3VwcyI6WyJncm91cC11c2VycyJdLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9ybjA0MVMwRmQiLCJjbGllbnRfaWQiOiIyOGNlcHBoOHZtMHEwbHBtZ3RqYzgzNTJzYSIsIm9yaWdpbl9qdGkiOiJlZDVjN2E3Ny1jMzc0LTRlZWUtOWQzZi1lODJkM2JiMGEyMTIiLCJldmVudF9pZCI6IjllODI3OWM1LThkMzctNDE2OC04N2U2LTM5MzBlZTM2Y2Q3MCIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE3MjY5MjUxMTEsImV4cCI6MTcyNjkyODcxMSwiaWF0IjoxNzI2OTI1MTExLCJqdGkiOiJlMzhjMjE5NS03YzBhLTQyZTktODc5Ni01OGVhYmVkYzIxMzIiLCJ1c2VybmFtZSI6IjM0ODA0MDQ3ODI0In0.Y-dGaaCKTtq9nR6chaz6EGRaxOKu1IMc-uc4--MG9TYOpd0qw_ntBUTHP1bJ4jztSik6VQKk9Fvn5RO68bRi6bXKh14RpEz3iK5zTGeQyo2bWk-06VtuEke15hd7VG_tiTT20TQ14D67ZnKP9gar7t3kCSlKUxtieReAbWQa-Unf84QzMrjLVmKa7KpcPGsQQrzBstwfiGJlDYNGY3oUv8fM62QpCBbZpBV9Y-G0uQNQNQY9WF53U10tvGMF4wVG-QPOsdWweHe1bXZMXpKT5r4UF88LAUTQvNhLQUkKgKQrA-YlkpuH8DgGdgiJ3a8Bad-Ozyk_jfvT0WVBSn0e0Q",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/customers/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"customers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJraWQiOiJMUm11cmlkT1FSWTRhZ0J5cmJhMU8zaHlFUFhabm1RSTNvaUl4a3FpWU9VPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI4NDU4ODQ3OC0zMDkxLTcwMTYtMDFjOS03OTQwNjZkMWI4OTMiLCJjb2duaXRvOmdyb3VwcyI6WyJncm91cC11c2VycyJdLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9tSml4Mkt6WGkiLCJjbGllbnRfaWQiOiJkcDc3M3NoYzEzcHVqY2Zoc25kMm9kNjZlIiwib3JpZ2luX2p0aSI6IjljZmI1Yzg2LTY1YzEtNDliOC04MmJkLWZkOWExMGQ3OTU4MCIsImV2ZW50X2lkIjoiMGYyMmJjYjktNTQ5Zi00ZjIxLWFkZWEtNzRkY2E3NDcwZGMyIiwidG9rZW5fdXNlIjoiYWNjZXNzIiwic2NvcGUiOiJhd3MuY29nbml0by5zaWduaW4udXNlci5hZG1pbiIsImF1dGhfdGltZSI6MTcyNjc3NzQzNywiZXhwIjoxNzI2NzgxMDM3LCJpYXQiOjE3MjY3Nzc0MzcsImp0aSI6IjBmYjk4ODQ1LWQ4M2EtNDkzYy05NGZjLTJiM2MxYjA0NWY1NyIsInVzZXJuYW1lIjoiMzQ4MDQwNDc4MjQifQ.HR06T6Tin4S0mtfjknDhhV7TeZNufRGZ-d6AucXcEZ4Vn-Np8X6fRoyK06IHq6k29LDCwDBrBoi94N6ZJARGLiSU6l1Onl5c0oOQu0z3F0XSPZMVQxn6O0A7cOG7-kXOCl_xhYHR2GAwXK3tuxkIPJNxSq0TTsP6zou28AgDU1Z3wNTyuhj6Y1ozM4-m-GBjm59s85CHrsaM88N2pJdmxRNo4sIwGniM2mIU2tlCiDnLkq_vUBVBftL53DoTwc4aAIOBkP695o5VpjiZCbVaBO0tkQjAu4ldxenYn1SFGp9Wy0J7MGFjBaotm99eWa8kvVFImahscnIa-ZDM4qi5lg",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/users/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer By CPF (Login)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "te",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cpf\": \"903.640.610-22\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/customers/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"customers",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Customer",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJraWQiOiJ5ZUJyeVZyNFdCVVdzcFEyU09XcDdUem5TeWtNWVRpdVdvTUZuN1pScmdnPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJiNGM4OTQwOC1kMDExLTcwZTItZWZkNi0yYzNhMjNmZTdkNTAiLCJjb2duaXRvOmdyb3VwcyI6WyJncm91cC11c2VycyJdLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9HWGs2blVpNkIiLCJjbGllbnRfaWQiOiJqc2hldGluYzBwNmgzcGJzbGJwdjc0YXB1Iiwib3JpZ2luX2p0aSI6IjEyYWU4MDFkLWQ5ZmItNDI1OC1hNTBmLWE0ZGVhOTQwOTA5NCIsImV2ZW50X2lkIjoiODhmOGUxZjgtMzQwYi00MDI1LWFjMGQtMTM4ZjI5YTE5OWYzIiwidG9rZW5fdXNlIjoiYWNjZXNzIiwic2NvcGUiOiJhd3MuY29nbml0by5zaWduaW4udXNlci5hZG1pbiIsImF1dGhfdGltZSI6MTcyNjcxMjQ1NSwiZXhwIjoxNzI2NzE2MDU1LCJpYXQiOjE3MjY3MTI0NTUsImp0aSI6ImQ3NDBkNjdjLWNjOTctNDliMC05Zjk4LTBjOGNhMzIwNWVhZCIsInVzZXJuYW1lIjoiMzQ4MDQwNDc4MjQifQ.BKdxNph2bYV7OsOeKxoE333-0ns9DDm19cUE2kTwqUppddTGqw3F5rUP-yZ8sFGNXmbQLU5rloTOhrU-Qq46aIRQvWqqYJ5DAlkeUqXUkEb7SmXUvgeH0Zq-sIoQr3Z1PGSYuQ81rEA4Nde_W7eQp1_xZPcSGFqszfTL6lrTsPrNS1OLTsTTCx6V1z9YVRlQ-0M3apslFDOXlpvXSFt8wyq4LKLi8sCwvCZBDo9OOT31UP32OQA2DlV-iMaikNzVCzDXUvaAVO3sjMT4YZO37XS7FvRox_85rA-m5Pu4MAxgTTfKoDtAhAWdtHaykHVSOM94QLcql8NhzH8kc8JtOw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Teste 4444444\",\n    \"cpf\": \"28814129045\",\n    \"email\": \"teste4@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/customers/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"customers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Get All Categories",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJraWQiOiI4cXNoTjJVbkF3WjYwQnZSeG1yc2RqamJWMXZHOGNiXC9YbWVWREYrXC9HWkE9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI4NDE4YzQ5OC01MGUxLTcwM2MtMDQyYi0zYWI2YzRkYzg1NWEiLCJjb2duaXRvOmdyb3VwcyI6WyJncm91cC1hZG1pbiJdLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9ybjA0MVMwRmQiLCJjbGllbnRfaWQiOiIyOGNlcHBoOHZtMHEwbHBtZ3RqYzgzNTJzYSIsIm9yaWdpbl9qdGkiOiIyYzJhZDExZS04MDg5LTQ2OWQtYjQ3Yi0zOTJkNTVhNDNjMmYiLCJldmVudF9pZCI6ImY3NDJhZDBmLTlkMTYtNDI0NC1hODE4LTkxNGE3M2YyZGIxNSIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE3MjY5MjU3MTcsImV4cCI6MTcyNjkyOTMxNywiaWF0IjoxNzI2OTI1NzE3LCJqdGkiOiIyNDYwYjNjOS0zZjhiLTQ4NzYtODhhMi0wMzRlOWNmMzA2OGMiLCJ1c2VybmFtZSI6IjM2MzE3MjA2ODgwIn0.KXpJQ1Ye-bLup3SRZkDherHYMGnQIwDDYcLB0J8SypkTfiIEkVu4RZ0Yyk-UCWCu6Dfr7dkpiXUvgQMZ1nsdc2Ib5oshQKStdAm3lYs4SfWBgY2F6yBjnT1udxPWQcKZc-I2x7f9_RMt1E4BYJCsLkhl_wqBrLh5r9NdW7X60qQvvEfxuUH77Mw8U3W3zxq6RTZtvUQs0joqnGgxvSBSL6qjfEJC_RH-0v9AeNMcIp7CMBnfD5GQg8lIbo380KPl9rHnW-y9U8umDgxsRiKKCsF9OqCErENxBWIFQoxqxnkQYFmKbACOAMEAbeZ0R05F-OmJpUk82IpQSvfk0miQ0Q",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/products/categories",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"categories"
+							],
+							"query": [
+								{
+									"key": "Authori",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product By Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJraWQiOiI1MmlXVmJVNWpEQjJ6eTZiVlV5NFJvVjE0eVV1bGpjZ1dzNHFlZ0lJYlJJPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJiNGM4MzQ4OC01MDYxLTcwOGQtNTcwNy05ZjMyNTczNGVkM2IiLCJjb2duaXRvOmdyb3VwcyI6WyJncm91cC11c2VycyJdLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV8yZ3FWeXhNVnIiLCJjbGllbnRfaWQiOiI1bDVmc2RqNm1ldWtzdHI4dGd0bjNrcjBnbCIsIm9yaWdpbl9qdGkiOiI4YTRlZGJkOS00Y2ZlLTQ3NTYtYjgyZC0yN2FiZDZjZjgzZTIiLCJldmVudF9pZCI6ImJmNjM4Zjk1LTczYjYtNGRiMS05NDkwLWEzZjAwOTVjZGE4YyIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE3MjY4NjYwNjAsImV4cCI6MTcyNjg2OTY2MCwiaWF0IjoxNzI2ODY2MDYwLCJqdGkiOiI1YTQ0YjRjNi1kOWViLTQyM2UtYWQwMC1iMTJhYmVhOWNjMWIiLCJ1c2VybmFtZSI6IjM0ODA0MDQ3ODI0In0.daPETg83ypYdwgegldmbjKzhZLck1bSzVLPXTbS8_6I4cXsKqzptUWwGA5EprBgbxuELdyZaOodJlAildxeQeOw5KVvQ0ZbWhYACMZaSLDzKifjVX1m6s7F5yxEGGXaJHBvxZ4Q5fG5gHFw3-Ss8lq8e3YWp6bm7kJ7qa6iVhFNfPpqufjNdryqAunfLli7eqs-h23b2zoxH8oDg7XOcoL5HGzZXXqJUbM6h7E9YrpMtYZD2N6YZxXpllRRVN62vTboIIHZDN7nGL8UMcMe7V0IBadwBI3CCxSIFg2_LlgWUF9R4CUVPb22ogyg9ogcadzJJzLQUH2y4qQ1i270UiQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/products/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Batata frita grande\",\n    \"description\": \"Batata frita grande de 350g com queijo e bacon\",\n    \"category\": \"Acompanhamento\",\n    \"price\": 17.99,\n    \"images\": [\n        {\n            \"imageUrl\": \"url1\"\n        },\n        {\n            \"imageUrl\": \"url2\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/products/7",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Combo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJraWQiOiJXTVhxd2pQeFJadW1hd0xiQTh3MkNDUDRVcXVaRHVKY0syeFwvUVRWN1wveEU9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI4NDY4ODQ5OC03MGQxLTcwNTQtMjM0NC1lMzE4MjgzMzcxM2YiLCJjb2duaXRvOmdyb3VwcyI6WyJncm91cC1hZG1pbiJdLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9ueE9zRVQ3VnQiLCJjbGllbnRfaWQiOiIyOHZmam1sMmk1MGpkdWFpZGRhNnYyY2plZyIsIm9yaWdpbl9qdGkiOiJlNThhN2EwZS1lMmRjLTQ5MjEtOTY4MC03M2JkOGQyMDMxMGUiLCJldmVudF9pZCI6IjUzNTk3OTc5LTJmNTktNDFiNi1iYTY1LTRmNDUxNjI3NGNmMiIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE3MjcxMzQyNTIsImV4cCI6MTcyNzEzNzg1MiwiaWF0IjoxNzI3MTM0MjUyLCJqdGkiOiJiMGM2NmIzOS0xZDFkLTRjYWMtYmZiYS1mZmFkNzliZWE2YzYiLCJ1c2VybmFtZSI6IjM2MzE3MjA2ODgwIn0.iA9ea4yc2iwoOkV6Nbz8CQ06sv0z35-9qnVaBT8MGN1KnGOvIFfRJIw16Fnvm-S2z6Hc2ZlT9lVVuh65TbxJuLSIRqQZ6TEgcUps9Dbt98zWYlH5uHNUtlfTO4bj2FQqXnTFjnmIx-14ByzN95bY8Ic65GhZcYh-M-0LVkU4hFf-1yddFoOVjtyuyVv9VYwuY4b2HJoMd07XFie79iIQJRxN2AAywi3CuY5vnrd0HPtYzvtvw83Y7NWcJzsLoFUen6LmlY5sfd81JOy9s5-dyjguiDUT8NCtXSZA4WuLu_24s2R5DZHFeUR-WLI8ACakR4eTgtFlFPPCG2enDnkjgg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Combo pequeno\",\n    \"description\": \"Hamburguer, batata e bebida\",\n    \"category\": \"Combo\",\n    \"price\": 2999,\n    \"images\": [\n        {\n            \"imageUrl\": \"url1\"\n        },\n        {\n            \"imageUrl\": \"url2\"\n        },\n        {\n            \"imageUrl\": \"url3\"\n        }\n    ],\n    \"comboProductsIds\": [6,4, 1]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/admin/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJraWQiOiJXTVhxd2pQeFJadW1hd0xiQTh3MkNDUDRVcXVaRHVKY0syeFwvUVRWN1wveEU9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI4NDY4ODQ5OC03MGQxLTcwNTQtMjM0NC1lMzE4MjgzMzcxM2YiLCJjb2duaXRvOmdyb3VwcyI6WyJncm91cC1hZG1pbiJdLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9ueE9zRVQ3VnQiLCJjbGllbnRfaWQiOiIyOHZmam1sMmk1MGpkdWFpZGRhNnYyY2plZyIsIm9yaWdpbl9qdGkiOiIwNzdjYTViOC02NmY5LTRlN2UtYjIyNy1iYzJlNDFkNzA2NjciLCJldmVudF9pZCI6ImI3YzFjNDBlLTkyYWYtNGRkYi1hZTJhLTBjNTUwZTg2ZDJiYyIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE3MjcxMzQwMTEsImV4cCI6MTcyNzEzNzYxMSwiaWF0IjoxNzI3MTM0MDExLCJqdGkiOiI5MGI4NTNlNC0xYjliLTQwMmQtYTM4YS00MDllZTdkOWQwZmUiLCJ1c2VybmFtZSI6IjM2MzE3MjA2ODgwIn0.nr_T5iNM1otIYPKK-LnYd-aZVIuyc6Wuk_AXup_A_vd4Z9wmi_cpOF_poHPRPPM51mkLcd6gswgPl0rQ-PQHAGxxZLvBnVtlIL8xdt13h4838mB82ix3zTe5necQ8kTcpCs8yjZjIdt0du_p8DBI5zJ4efJdeUAoKjaMDtugbYAfTEQaBhb5761Rx7YfOG9a_72qf9w_zPCqju71RxsGQlMdtxCsBD2Dp-os9cWv6loRvbwXzVyFbyWOWa74jbHC7CM7GAnh7cPWzeuArVozm8IjFeGymo2ppgNc1GNDdVzFDyKBJp3GNNJX2Ozfc8IBHWkgbItVLT1T6fxQ2tbH_w",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Batata 2\",\n    \"description\": \"Batata média\",\n    \"category\": \"Acompanhamento\",\n    \"price\": 7.99,\n    \"images\": [\n        {\n            \"imageUrl\": \"url1\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/admin/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Hamburguer Angus 3\",\n    \"description\": \"Hamburguer Angus com 2 carnes de 120g com cebola roxa, queijo cheddar, bacon, ovo e rúcula\",\n    \"category\": \"Lanche\",\n    \"price\": 2499,\n    \"images\": [\n        {\n            \"imageUrl\": \"url1\"\n        },\n        {\n            \"imageUrl\": \"url2\"\n        },\n        {\n            \"imageUrl\": \"url3\"\n        },\n        {\n            \"imageUrl\": \"url4\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/products/6",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Products by category",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJraWQiOiJXTVhxd2pQeFJadW1hd0xiQTh3MkNDUDRVcXVaRHVKY0syeFwvUVRWN1wveEU9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIyNDk4ZjQ4OC0wMDUxLTcwODEtODhkZi0zNjJkYjI5ZjE2MzMiLCJjb2duaXRvOmdyb3VwcyI6WyJncm91cC11c2VycyJdLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9ueE9zRVQ3VnQiLCJjbGllbnRfaWQiOiIyOHZmam1sMmk1MGpkdWFpZGRhNnYyY2plZyIsIm9yaWdpbl9qdGkiOiIwODViNWU2Yi0yYzkxLTQzNzUtODc5Ni1mNzNlMzI3M2MwYTIiLCJldmVudF9pZCI6ImYzMGZmODYwLTg4OGEtNGEwYS05NjYwLWI4ZTYxYmFlNWQ1MCIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE3MjcxMzQyMTAsImV4cCI6MTcyNzEzNzgxMCwiaWF0IjoxNzI3MTM0MjEwLCJqdGkiOiIxMGE0ZWIwNy02YjA0LTQyZWYtOTMwMS04ZjIyNDA0N2VkNzkiLCJ1c2VybmFtZSI6InVua25vd24tdXNlciJ9.eD5j6NT0gn0uNBUEIg-ndDt37CO0FPWSfmZrJbTz4w2d4Q6jGFxxXU2gTkJFJmb4Arx_hFYl922_8SjlkNfbf3c-Eulka_M-4mPRmhZtJf1nNnYyGAWaaX_6w6rphF-bt8MIn9XMQKDxJiTk1hmdp2WbZ-P-1yaVBg3AW-0snU1lFwOhXgx8G95Oy0U0taJcyR2Vis_LXmOI6F_eZcxOgXCisKNHqb6q-aywuilbqab7SLebTzWWhabTf9VtQp6suFqnLjeQPn0u6MW-JVGwiVO_kXt6pRNPBd0mevd_2AyFv_z9Kt5BpV3PECiJGBCIkSLKw50yOYe8E9GVUsPNSA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/products/categories/Acompanhamento",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"categories",
+								"Acompanhamento"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "Get Order By Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"totalPrice\": 4590,\n    \"paymentKind\": \"Voucher\",\n    \"customerId\": 13,\n    \"orderProducts\": [\n        {\n            \"productId\": 30\n        },\n        {\n            \"productId\": 33\n        },\n        {\n            \"productId\": 2\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/orders/19",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"19"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Orders to Prepare",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"totalPrice\": 4590,\n    \"paymentKind\": \"Voucher\",\n    \"customerId\": 13,\n    \"orderProducts\": [\n        {\n            \"productId\": 30\n        },\n        {\n            \"productId\": 33\n        },\n        {\n            \"productId\": 2\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/orders/to-prepare",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"to-prepare"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Orders to Follow",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"totalPrice\": 4590,\n    \"paymentKind\": \"Voucher\",\n    \"customerId\": 13,\n    \"orderProducts\": [\n        {\n            \"productId\": 30\n        },\n        {\n            \"productId\": 33\n        },\n        {\n            \"productId\": 2\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/orders/follow",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"follow"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Orders Waiting Payment",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"totalPrice\": 4590,\n    \"paymentKind\": \"Voucher\",\n    \"customerId\": 13,\n    \"orderProducts\": [\n        {\n            \"productId\": 30\n        },\n        {\n            \"productId\": 33\n        },\n        {\n            \"productId\": 2\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/orders/waiting-payment",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"waiting-payment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order to Preparing",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"totalPrice\": 4590,\n    \"paymentKind\": \"Voucher\",\n    \"customerId\": 13,\n    \"orderProducts\": [\n        {\n            \"productId\": 30\n        },\n        {\n            \"productId\": 33\n        },\n        {\n            \"productId\": 2\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/orders/19/preparing",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"19",
+								"preparing"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order to Done",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"totalPrice\": 4590,\n    \"paymentKind\": \"Voucher\",\n    \"customerId\": 13,\n    \"orderProducts\": [\n        {\n            \"productId\": 30\n        },\n        {\n            \"productId\": 33\n        },\n        {\n            \"productId\": 2\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/orders/19/done",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"19",
+								"done"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order to Delivered",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"totalPrice\": 4590,\n    \"paymentKind\": \"Voucher\",\n    \"customerId\": 13,\n    \"orderProducts\": [\n        {\n            \"productId\": 30\n        },\n        {\n            \"productId\": 33\n        },\n        {\n            \"productId\": 2\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/orders/19/delivered",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"19",
+								"delivered"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order to Not Delivered",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"totalPrice\": 4590,\n    \"paymentKind\": \"Voucher\",\n    \"customerId\": 13,\n    \"orderProducts\": [\n        {\n            \"productId\": 30\n        },\n        {\n            \"productId\": 33\n        },\n        {\n            \"productId\": 2\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/orders/7/not-delivered",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"7",
+								"not-delivered"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"totalPrice\": 44.50,\n    \"paymentId\": 18,\n    \"orderProducts\": [\n        {\n            \"productId\": 9\n        },\n        {\n            \"productId\": 4\n        },\n        {\n            \"productId\": 6\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment",
+			"item": [
+				{
+					"name": "Pay",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"paymentType\": \"Credito\",\n    \"totalPrice\": 44.50\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/payments",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"payments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Payment Types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/payments/types",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"payments",
+								"types"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "QR Code",
+			"item": [
+				{
+					"name": "Generate QR Code",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"totalPrice\": 14.55,\n    \"orderProducts\": [\n        {\n            \"productId\": 1,\n            \"productPrice\": 14.99\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/qrcode/generate",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"qrcode",
+								"generate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Webhook Handler Payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"resource\": \"teste\",\n    \"topic\": \"merchant_order\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/webhook/ml/payment",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"webhook",
+								"ml",
+								"payment"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login User Admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "teste",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cpf\": \"66865407067\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Customer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "open",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cpf\": \"28814129045\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Unknown Customer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "open",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login/unknown",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login",
+								"unknown"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Health",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "open",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/health",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
