@@ -16,6 +16,7 @@ type CreateOrderUseCase interface {
 
 type CreateOrderUseCaseImpl struct {
 	orderRepo                repository.OrderRepository
+	customerRepo             repository.CustomerRepository
 	validateToPrepare        *ValidateOrderToPrepareUseCase
 	validateToDone           *ValidateOrderToDoneUseCase
 	validateToDeliveredOrNot *ValidateOrderToDeliveredOrNotUseCase
@@ -95,6 +96,7 @@ type GetOrdersWaitingPaymentUseCaseImpl struct {
 
 func NewCreateOrderUseCase(
 	orderRepo repository.OrderRepository,
+	customerRepo repository.CustomerRepository,
 	validateToPrepate *ValidateOrderToPrepareUseCase,
 	validateToDone *ValidateOrderToDoneUseCase,
 	validateToDeliveredOrNot *ValidateOrderToDeliveredOrNotUseCase,
@@ -102,6 +104,7 @@ func NewCreateOrderUseCase(
 ) CreateOrderUseCase {
 	return &CreateOrderUseCaseImpl{
 		orderRepo:                orderRepo,
+		customerRepo:             customerRepo,
 		validateToPrepare:        validateToPrepate,
 		validateToDone:           validateToDone,
 		validateToDeliveredOrNot: validateToDeliveredOrNot,
@@ -187,7 +190,13 @@ func NewUpdateToNotDeliveredUseCase(
 	}
 }
 
-func (usecase *CreateOrderUseCaseImpl) Execute(ctx context.Context, order dto.Order, date int64, wg *sync.WaitGroup, ch chan bool) (dto.OrderResponse, error) {
+func (usecase *CreateOrderUseCaseImpl) Execute(
+	ctx context.Context,
+	order dto.Order,
+	date int64,
+	wg *sync.WaitGroup,
+	ch chan bool,
+) (dto.OrderResponse, error) {
 	//Block this code below until this Channel be empty (by reading with <-ch)
 	ch <- true
 
@@ -199,9 +208,8 @@ func (usecase *CreateOrderUseCaseImpl) Execute(ctx context.Context, order dto.Or
 		return dto.OrderResponse{}, responses.GetResponseError(err, "OrderService -> CreateOrder")
 	}
 
-	// TODO: RESOLVER COM MS
-	if order.CustomerID != nil {
-		customer, err := usecase.customerRepo.GetCustomerById(ctx, *order.CustomerID)
+	if order.CPF != nil {
+		customer, err := usecase.customerRepo.GetCustomerByCPF(ctx, *order.CPF)
 		if err == nil {
 			response.CustomerName = &customer.Name
 		}

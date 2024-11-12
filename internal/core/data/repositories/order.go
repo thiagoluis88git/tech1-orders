@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/thiagoluis88git/tech1-orders/internal/core/data/model"
+	"github.com/thiagoluis88git/tech1-orders/internal/core/data/remote"
 	"github.com/thiagoluis88git/tech1-orders/internal/core/domain/dto"
 	"github.com/thiagoluis88git/tech1-orders/internal/core/domain/repository"
 	"github.com/thiagoluis88git/tech1-orders/pkg/database"
@@ -12,12 +13,14 @@ import (
 )
 
 type OrderRespository struct {
-	db *database.Database
+	db         *database.Database
+	customerDS remote.CustomerRemoteDataSource
 }
 
-func NewOrderRespository(db *database.Database) repository.OrderRepository {
+func NewOrderRespository(db *database.Database, customerDS remote.CustomerRemoteDataSource) repository.OrderRepository {
 	return &OrderRespository{
-		db: db,
+		db:         db,
+		customerDS: customerDS,
 	}
 }
 
@@ -44,7 +47,7 @@ func (repository *OrderRespository) createOrder(ctx context.Context, order dto.O
 	orderEntity := &model.Order{
 		OrderStatus:  status,
 		TotalPrice:   order.TotalPrice,
-		CustomerID:   order.CustomerID,
+		CPF:          order.CPF,
 		PaymentID:    order.PaymentID,
 		TicketNumber: order.TicketNumber,
 	}
@@ -172,9 +175,14 @@ func (repository *OrderRespository) GetOrderById(ctx context.Context, orderId ui
 
 	var customerName *string
 
-	// TODO: RESOLVER COM MS
-	if orderEntity.Customer != nil {
-		customerName = &orderEntity.Customer.Name
+	if orderEntity.CPF != nil {
+		customerResponse, err := repository.customerDS.GetCustomerByCPF(ctx, *orderEntity.CPF)
+
+		if err != nil {
+			return dto.OrderResponse{}, err
+		}
+
+		customerName = &customerResponse.Name
 	}
 
 	return dto.OrderResponse{
@@ -268,9 +276,12 @@ func (repository *OrderRespository) buildOrdersList(orderEntity []model.Order) [
 
 		var customerName *string
 
-		// TODO: RESOLVER COM MS
-		if value.Customer != nil {
-			customerName = &value.Customer.Name
+		if value.CPF != nil {
+			customerResponse, err := repository.customerDS.GetCustomerByCPF(context.Background(), *value.CPF)
+
+			if err == nil {
+				customerName = &customerResponse.Name
+			}
 		}
 
 		orders = append(orders, dto.OrderResponse{

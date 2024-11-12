@@ -22,13 +22,13 @@ var (
 			},
 		},
 	}
-	customerId = uint(1)
+	cpf = "12345678910"
 
 	orderCreationWithCustomer = dto.Order{
 		TotalPrice:   12345,
 		PaymentID:    uint(1),
 		TicketNumber: 1,
-		CustomerID:   &customerId,
+		CPF:          &cpf,
 		OrderProduct: []dto.OrderProduct{
 			{
 				ProductID: 1,
@@ -197,6 +197,21 @@ type MockUserAdminRepository struct {
 
 type MockQRCodePaymentRepository struct {
 	mock.Mock
+}
+
+type MockCustomerRepository struct {
+	mock.Mock
+}
+
+func (mock *MockCustomerRepository) GetCustomerByCPF(ctx context.Context, cpf string) (dto.Customer, error) {
+	args := mock.Called(ctx, cpf)
+	err := args.Error(1)
+
+	if err != nil {
+		return dto.Customer{}, err
+	}
+
+	return args.Get(0).(dto.Customer), nil
 }
 
 func (mock *MockOrderRepository) CreateOrder(ctx context.Context, order dto.Order) (dto.OrderResponse, error) {

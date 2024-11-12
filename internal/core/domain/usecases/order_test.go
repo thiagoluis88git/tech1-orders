@@ -20,12 +20,15 @@ func TestOrderServices(t *testing.T) {
 		t.Parallel()
 
 		mockRepo := new(MockOrderRepository)
+		customerRepo := new(MockCustomerRepository)
 		validateToPrepare := NewValidateOrderToPrepareUseCase(mockRepo)
 		validateToDone := NewValidateOrderToDoneUseCase(mockRepo)
 		validateToDeliveredOrNot := NewValidateOrderToDeliveredOrNotUseCase(mockRepo)
 		sortOrdersUseCase := NewSortOrdersUseCase()
 
-		sut := NewCreateOrderUseCase(mockRepo,
+		sut := NewCreateOrderUseCase(
+			mockRepo,
+			customerRepo,
 			validateToPrepare,
 			validateToDone,
 			validateToDeliveredOrNot,
@@ -47,12 +50,15 @@ func TestOrderServices(t *testing.T) {
 		t.Parallel()
 
 		mockRepo := new(MockOrderRepository)
+		customerRepo := new(MockCustomerRepository)
 		validateToPrepare := NewValidateOrderToPrepareUseCase(mockRepo)
 		validateToDone := NewValidateOrderToDoneUseCase(mockRepo)
 		validateToDeliveredOrNot := NewValidateOrderToDeliveredOrNotUseCase(mockRepo)
 		sortOrdersUseCase := NewSortOrdersUseCase()
 
-		sut := NewCreateOrderUseCase(mockRepo,
+		sut := NewCreateOrderUseCase(
+			mockRepo,
+			customerRepo,
 			validateToPrepare,
 			validateToDone,
 			validateToDeliveredOrNot,
@@ -80,12 +86,15 @@ func TestOrderServices(t *testing.T) {
 		t.Parallel()
 
 		mockRepo := new(MockOrderRepository)
+		customerRepo := new(MockCustomerRepository)
 		validateToPrepare := NewValidateOrderToPrepareUseCase(mockRepo)
 		validateToDone := NewValidateOrderToDoneUseCase(mockRepo)
 		validateToDeliveredOrNot := NewValidateOrderToDeliveredOrNotUseCase(mockRepo)
 		sortOrdersUseCase := NewSortOrdersUseCase()
 
-		sut := NewCreateOrderUseCase(mockRepo,
+		sut := NewCreateOrderUseCase(
+			mockRepo,
+			customerRepo,
 			validateToPrepare,
 			validateToDone,
 			validateToDeliveredOrNot,
@@ -113,12 +122,15 @@ func TestOrderServices(t *testing.T) {
 		t.Parallel()
 
 		mockRepo := new(MockOrderRepository)
+		customerRepo := new(MockCustomerRepository)
 		validateToPrepare := NewValidateOrderToPrepareUseCase(mockRepo)
 		validateToDone := NewValidateOrderToDoneUseCase(mockRepo)
 		validateToDeliveredOrNot := NewValidateOrderToDeliveredOrNotUseCase(mockRepo)
 		sortOrdersUseCase := NewSortOrdersUseCase()
 
-		sut := NewCreateOrderUseCase(mockRepo,
+		sut := NewCreateOrderUseCase(
+			mockRepo,
+			customerRepo,
 			validateToPrepare,
 			validateToDone,
 			validateToDeliveredOrNot,

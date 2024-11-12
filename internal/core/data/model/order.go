@@ -20,7 +20,7 @@ type Order struct {
 	OrderStatus    string
 	TotalPrice     float64
 	PaymentID      uint
-	CustomerID     *uint
+	CPF            *string
 	TicketNumber   int
 	PreparingAt    *time.Time
 	DoneAt         *time.Time

@@ -35,7 +35,7 @@ func TestHttpClient(t *testing.T) {
 		ts := httptest.NewServer(responseHandler)
 		defer ts.Close()
 
-		response, err := httpserver.DoRequest(context.TODO(), ts.Client(), ts.URL, nil, nil, http.MethodGet, dto.ProductResponse{})
+		response, err := httpserver.DoGetRequest(context.TODO(), ts.Client(), ts.URL, nil, dto.ProductResponse{})
 
 		assert.NoError(t, err)
 		assert.NotEmpty(t, response)
@@ -51,7 +51,7 @@ func TestHttpClient(t *testing.T) {
 		ts := httptest.NewServer(responseHandler)
 		defer ts.Close()
 
-		response, err := httpserver.DoRequest(context.TODO(), ts.Client(), ts.URL, nil, nil, http.MethodGet, dto.ProductResponse{})
+		response, err := httpserver.DoGetRequest(context.TODO(), ts.Client(), ts.URL, nil, dto.ProductResponse{})
 
 		assert.Error(t, err)
 		assert.Empty(t, response)
@@ -64,7 +64,7 @@ func TestHttpClient(t *testing.T) {
 
 		assert.NotEmpty(t, client)
 
-		response, err := httpserver.DoRequest(context.TODO(), client, "http://localhost", nil, nil, http.MethodGet, dto.ProductResponse{})
+		response, err := httpserver.DoGetRequest(context.TODO(), client, "http://localhost", nil, dto.ProductResponse{})
 
 		assert.Error(t, err)
 		assert.Empty(t, response)
