@@ -146,7 +146,6 @@ func (repository *OrderRespository) GetOrderById(ctx context.Context, orderId ui
 		db.Connection.WithContext(ctx).
 		Model(&model.Order{}).
 		Preload("OrderProduct.Product").
-		Preload("Customer").
 		Where("id = ?", orderId).
 		Find(&orderEntity).
 		Limit(1).
@@ -205,7 +204,6 @@ func (repository *OrderRespository) GetOrdersToPrepare(ctx context.Context) ([]d
 		db.Connection.WithContext(ctx).
 		Model(&model.Order{}).
 		Preload("OrderProduct.Product").
-		Preload("Customer").
 		Where("order_status = ?", model.OrderStatusCreated).
 		Order("created_at").
 		Find(&orderEntity).
@@ -224,7 +222,6 @@ func (repository *OrderRespository) GetOrdersToFollow(ctx context.Context) ([]dt
 		db.Connection.WithContext(ctx).
 		Model(&model.Order{}).
 		Preload("OrderProduct.Product").
-		Preload("Customer").
 		Where("order_status in (?, ?,?)",
 			model.OrderStatusCreated,
 			model.OrderStatusPreparing,
@@ -247,7 +244,6 @@ func (repository *OrderRespository) GetOrdersWaitingPayment(ctx context.Context)
 		db.Connection.WithContext(ctx).
 		Model(&model.Order{}).
 		Preload("OrderProduct.Product").
-		Preload("Customer").
 		Where("order_status = ?", model.OrderStatusPaying).
 		Order("created_at").
 		Find(&orderEntity).

@@ -18,8 +18,8 @@ func NewCustomerRepository(ds remote.CustomerRemoteDataSource) repository.Custom
 	}
 }
 
-func (ds *CustomerRepositoryImpl) GetCustomerByCPF(ctx context.Context, cpf string) (dto.Customer, error) {
-	response, err := ds.GetCustomerByCPF(ctx, cpf)
+func (repo *CustomerRepositoryImpl) GetCustomerByCPF(ctx context.Context, cpf string) (dto.Customer, error) {
+	response, err := repo.ds.GetCustomerByCPF(ctx, cpf)
 
 	if err != nil {
 		return dto.Customer{}, err

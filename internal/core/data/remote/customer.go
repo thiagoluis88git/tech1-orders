@@ -27,7 +27,7 @@ func NewCustomerRemoteDataSource(client *http.Client, rootURL string) CustomerRe
 }
 
 func (ds *CustomerRemoteDataSourceImpl) GetCustomerByCPF(ctx context.Context, cpf string) (model.Customer, error) {
-	endpoint := fmt.Sprintf("%v/%v/%v", ds.rootURL, "api/customer", cpf)
+	endpoint := fmt.Sprintf("%v/%v/%v", ds.rootURL, "customer", cpf)
 
 	response, err := httpserver.DoGetRequest(
 		ctx,

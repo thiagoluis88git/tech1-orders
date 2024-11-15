@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/thiagoluis88git/tech1-orders/internal/core/data/remote"
 	"github.com/thiagoluis88git/tech1-orders/internal/core/data/repositories"
 	"github.com/thiagoluis88git/tech1-orders/internal/core/domain/usecases"
 	"github.com/thiagoluis88git/tech1-orders/internal/core/handler"
@@ -69,6 +70,9 @@ func main() {
 
 	httpClient := httpserver.NewHTTPClient()
 
+	customerRemote := remote.NewCustomerRemoteDataSource(httpClient, environment.GetCustomerRootAPI())
+	customerRepo := repositories.NewCustomerRepository(customerRemote)
+
 	productRepo := repositories.NewProductRepository(db)
 	validateProductCategoryUseCase := usecases.NewValidateProductCategoryUseCase()
 	getCategoriesUseCase := usecases.NewGetCategoriesUseCase(productRepo)
@@ -78,13 +82,14 @@ func main() {
 	updateProductUseCase := usecases.NewUpdateProductUseCase(productRepo)
 	createProductUseCase := usecases.NewCreateProductUseCase(validateProductCategoryUseCase, productRepo)
 
-	orderRepo := repositories.NewOrderRespository(db)
+	orderRepo := repositories.NewOrderRespository(db, customerRemote)
 	validateToPreare := usecases.NewValidateOrderToPrepareUseCase(orderRepo)
 	validateToDone := usecases.NewValidateOrderToDoneUseCase(orderRepo)
 	validateToDeliveredOrNot := usecases.NewValidateOrderToDeliveredOrNotUseCase(orderRepo)
 	sortOrders := usecases.NewSortOrdersUseCase()
 	createOrderUseCase := usecases.NewCreateOrderUseCase(
 		orderRepo,
+		customerRepo,
 		validateToPreare,
 		validateToDone,
 		validateToDeliveredOrNot,

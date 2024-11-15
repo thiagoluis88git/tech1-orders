@@ -22,6 +22,7 @@ func setup() {
 	os.Setenv(environment.QRCodeGatewayToken, "QRCodeGatewayToken")
 	os.Setenv(environment.Region, "Region")
 	os.Setenv(environment.WebhookMercadoLivrePaymentURL, "WebhookMercadoLivrePaymentURL")
+	os.Setenv(environment.CustomerRootAPI, "CustomerRootAPI")
 }
 
 func TestEnvironment(t *testing.T) {
@@ -51,5 +52,6 @@ func TestEnvironment(t *testing.T) {
 		assert.Equal(t, "QRCodeGatewayToken", environment.GetQRCodeGatewayToken())
 		assert.Equal(t, "Region", environment.GetRegion())
 		assert.Equal(t, "WebhookMercadoLivrePaymentURL", environment.GetWebhookMercadoLivrePaymentURL())
+		assert.Equal(t, "CustomerRootAPI", environment.GetCustomerRootAPI())
 	})
 }

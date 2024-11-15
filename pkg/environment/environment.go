@@ -31,6 +31,7 @@ const (
 	CognitoGroupAdmin             = "AWS_COGNITO_GROUP_ADMIN"
 	CognitoUserPoolID             = "AWS_COGNITO_USER_POOL_ID"
 	Region                        = "AWS_REGION"
+	CustomerRootAPI               = "CUSTOMER_ROOT_API"
 )
 
 type Environment struct {
@@ -47,6 +48,7 @@ type Environment struct {
 	cognitoGroupAdmin             string
 	cognitoUserPoolID             string
 	region                        string
+	customerRootAPI               string
 }
 
 func LoadEnvironmentVariables() {
@@ -73,6 +75,7 @@ func LoadEnvironmentVariables() {
 	cognitoGroupAdmin := getEnvironmentVariable(CognitoGroupAdmin)
 	cognitoUserPoolID := getEnvironmentVariable(CognitoUserPoolID)
 	region := getEnvironmentVariable(Region)
+	customerRootAPI := getEnvironmentVariable(CustomerRootAPI)
 
 	once := &sync.Once{}
 
@@ -91,6 +94,7 @@ func LoadEnvironmentVariables() {
 			cognitoGroupAdmin:             cognitoGroupAdmin,
 			cognitoUserPoolID:             cognitoUserPoolID,
 			region:                        region,
+			customerRootAPI:               customerRootAPI,
 		}
 	})
 }
@@ -155,4 +159,8 @@ func GetCognitoUserPoolID() string {
 
 func GetRegion() string {
 	return singleton.region
+}
+
+func GetCustomerRootAPI() string {
+	return singleton.customerRootAPI
 }

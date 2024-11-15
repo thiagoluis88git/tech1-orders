@@ -13,6 +13,13 @@ import (
 	"github.com/thiagoluis88git/tech1-orders/pkg/responses"
 )
 
+func mockCustomer() dto.Customer {
+	return dto.Customer{
+		ID:   uint(1),
+		Name: "CustomerName",
+	}
+}
+
 func TestOrderServices(t *testing.T) {
 	t.Parallel()
 
@@ -105,6 +112,7 @@ func TestOrderServices(t *testing.T) {
 
 		date := time.Now().UnixMilli()
 
+		customerRepo.On("GetCustomerByCPF", ctx, *orderCreationWithCustomer.CPF).Return(mockCustomer(), nil)
 		mockRepo.On("CreateOrder", ctx, orderCreationWithCustomer).Return(orderWithCustomerCreationResponse, nil)
 		mockRepo.On("GetNextTicketNumber", ctx, date).Return(1, nil)
 

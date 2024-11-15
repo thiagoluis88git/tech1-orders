@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/DATA-DOG/go-sqlmock"
+	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
 	"github.com/testcontainers/testcontainers-go"
 	"github.com/testcontainers/testcontainers-go/modules/postgres"
@@ -16,6 +17,27 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 )
+
+func MockCustomer() model.Customer {
+	return model.Customer{
+		Name: "CustomerName",
+	}
+}
+
+type MockCustomerRemoteDataSource struct {
+	mock.Mock
+}
+
+func (mock *MockCustomerRemoteDataSource) GetCustomerByCPF(ctx context.Context, cpf string) (model.Customer, error) {
+	args := mock.Called(ctx, cpf)
+	err := args.Error(1)
+
+	if err != nil {
+		return model.Customer{}, err
+	}
+
+	return args.Get(0).(model.Customer), nil
+}
 
 type RepositoryTestSuite struct {
 	suite.Suite

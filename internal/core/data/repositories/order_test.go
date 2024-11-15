@@ -38,7 +38,9 @@ func (suite *RepositoryTestSuite) TestCreateOrderWithSuccess() {
 	suite.NoError(err)
 	suite.Equal(uint(1), newId)
 
-	repo := repositories.NewOrderRespository(suite.db)
+	customerDS := new(MockCustomerRemoteDataSource)
+
+	repo := repositories.NewOrderRespository(suite.db, customerDS)
 	newOrder := dto.Order{
 		TotalPrice:   5090,
 		PaymentID:    uint(12),
@@ -78,7 +80,9 @@ func (suite *RepositoryTestSuite) TestCreatePayingOrderWithSuccess() {
 	suite.NoError(err)
 	suite.Equal(uint(1), newId)
 
-	repo := repositories.NewOrderRespository(suite.db)
+	customerDS := new(MockCustomerRemoteDataSource)
+
+	repo := repositories.NewOrderRespository(suite.db, customerDS)
 	newOrder := dto.Order{
 		TotalPrice:   5090,
 		PaymentID:    uint(12),
@@ -118,7 +122,9 @@ func (suite *RepositoryTestSuite) TestDeleteOrderWithSuccess() {
 	suite.NoError(err)
 	suite.Equal(uint(1), newId)
 
-	repo := repositories.NewOrderRespository(suite.db)
+	customerDS := new(MockCustomerRemoteDataSource)
+
+	repo := repositories.NewOrderRespository(suite.db, customerDS)
 	newOrder := dto.Order{
 		TotalPrice:   5090,
 		PaymentID:    uint(12),
@@ -162,7 +168,9 @@ func (suite *RepositoryTestSuite) TestFinishOrderWithPaymentSuccess() {
 	suite.NoError(err)
 	suite.Equal(uint(1), newId)
 
-	repo := repositories.NewOrderRespository(suite.db)
+	customerDS := new(MockCustomerRemoteDataSource)
+
+	repo := repositories.NewOrderRespository(suite.db, customerDS)
 	newOrder := dto.Order{
 		TotalPrice:   5090,
 		PaymentID:    uint(12),
@@ -206,7 +214,62 @@ func (suite *RepositoryTestSuite) TestGetOrderByIDSuccess() {
 	suite.NoError(err)
 	suite.Equal(uint(1), newId)
 
-	repo := repositories.NewOrderRespository(suite.db)
+	customerDS := new(MockCustomerRemoteDataSource)
+
+	cpf := "12345678910"
+
+	repo := repositories.NewOrderRespository(suite.db, customerDS)
+	newOrder := dto.Order{
+		TotalPrice:   5090,
+		PaymentID:    uint(12),
+		TicketNumber: 12,
+		CPF:          &cpf,
+		OrderProduct: []dto.OrderProduct{
+			{
+				ProductID: uint(1),
+			},
+		},
+	}
+
+	customerDS.On("GetCustomerByCPF", suite.ctx, cpf).Return(MockCustomer(), nil)
+
+	orderResponse, err := repo.CreateOrder(suite.ctx, newOrder)
+	suite.NoError(err)
+	suite.Equal(uint(1), orderResponse.OrderId)
+
+	orderResult, err := repo.GetOrderById(suite.ctx, orderResponse.OrderId)
+	suite.NoError(err)
+	suite.Equal(12, orderResult.TicketNumber)
+	suite.Equal("CustomerName", *orderResult.CustomerName)
+}
+
+func (suite *RepositoryTestSuite) TestGetOrderByIDWithoutCustomerSuccess() {
+	// ensure that the postgres database is empty
+	var products []model.Product
+	result := suite.db.Connection.Find(&products)
+	suite.NoError(result.Error)
+	suite.Empty(products)
+
+	repoProduct := repositories.NewProductRepository(suite.db)
+	newProduct := dto.ProductForm{
+		Name:        "New Product Created",
+		Description: "New Description Product Created",
+		Category:    "Category",
+		Price:       2990,
+		Images: []dto.ProducImage{
+			{
+				ImageUrl: "NewImageUrl",
+			},
+		},
+	}
+
+	newId, err := repoProduct.CreateProduct(suite.ctx, newProduct)
+	suite.NoError(err)
+	suite.Equal(uint(1), newId)
+
+	customerDS := new(MockCustomerRemoteDataSource)
+
+	repo := repositories.NewOrderRespository(suite.db, customerDS)
 	newOrder := dto.Order{
 		TotalPrice:   5090,
 		PaymentID:    uint(12),
@@ -225,6 +288,7 @@ func (suite *RepositoryTestSuite) TestGetOrderByIDSuccess() {
 	orderResult, err := repo.GetOrderById(suite.ctx, orderResponse.OrderId)
 	suite.NoError(err)
 	suite.Equal(12, orderResult.TicketNumber)
+	suite.Nil(orderResult.CustomerName)
 }
 
 func (suite *RepositoryTestSuite) TestGetOrderByIDWithUnknownIDError() {
@@ -251,7 +315,9 @@ func (suite *RepositoryTestSuite) TestGetOrderByIDWithUnknownIDError() {
 	suite.NoError(err)
 	suite.Equal(uint(1), newId)
 
-	repo := repositories.NewOrderRespository(suite.db)
+	customerDS := new(MockCustomerRemoteDataSource)
+
+	repo := repositories.NewOrderRespository(suite.db, customerDS)
 	newOrder := dto.Order{
 		TotalPrice:   5090,
 		PaymentID:    uint(12),
@@ -296,7 +362,63 @@ func (suite *RepositoryTestSuite) TestGetOrdersToPrepareSuccess() {
 	suite.NoError(err)
 	suite.Equal(uint(1), newId)
 
-	repo := repositories.NewOrderRespository(suite.db)
+	customerDS := new(MockCustomerRemoteDataSource)
+
+	cpf := "12345678910"
+
+	repo := repositories.NewOrderRespository(suite.db, customerDS)
+	newOrder := dto.Order{
+		TotalPrice:   5090,
+		PaymentID:    uint(12),
+		CPF:          &cpf,
+		TicketNumber: 12,
+
+		OrderProduct: []dto.OrderProduct{
+			{
+				ProductID: uint(1),
+			},
+		},
+	}
+
+	customerDS.On("GetCustomerByCPF", suite.ctx, cpf).Return(MockCustomer(), nil)
+
+	orderResponse, err := repo.CreateOrder(suite.ctx, newOrder)
+	suite.NoError(err)
+	suite.Equal(uint(1), orderResponse.OrderId)
+
+	ordersToPrepare, err := repo.GetOrdersToPrepare(suite.ctx)
+	suite.NoError(err)
+	suite.Equal(1, len(ordersToPrepare))
+	suite.Equal("CustomerName", *ordersToPrepare[0].CustomerName)
+}
+
+func (suite *RepositoryTestSuite) TestGetOrdersToPrepareWithoutCustomerSuccess() {
+	// ensure that the postgres database is empty
+	var products []model.Product
+	result := suite.db.Connection.Find(&products)
+	suite.NoError(result.Error)
+	suite.Empty(products)
+
+	repoProduct := repositories.NewProductRepository(suite.db)
+	newProduct := dto.ProductForm{
+		Name:        "New Product Created",
+		Description: "New Description Product Created",
+		Category:    "Category",
+		Price:       2990,
+		Images: []dto.ProducImage{
+			{
+				ImageUrl: "NewImageUrl",
+			},
+		},
+	}
+
+	newId, err := repoProduct.CreateProduct(suite.ctx, newProduct)
+	suite.NoError(err)
+	suite.Equal(uint(1), newId)
+
+	customerDS := new(MockCustomerRemoteDataSource)
+
+	repo := repositories.NewOrderRespository(suite.db, customerDS)
 	newOrder := dto.Order{
 		TotalPrice:   5090,
 		PaymentID:    uint(12),
@@ -315,6 +437,7 @@ func (suite *RepositoryTestSuite) TestGetOrdersToPrepareSuccess() {
 	ordersToPrepare, err := repo.GetOrdersToPrepare(suite.ctx)
 	suite.NoError(err)
 	suite.Equal(1, len(ordersToPrepare))
+	suite.Nil(ordersToPrepare[0].CustomerName)
 }
 
 func (suite *RepositoryTestSuite) TestGetOrdersToFollowSuccess() {
@@ -341,7 +464,9 @@ func (suite *RepositoryTestSuite) TestGetOrdersToFollowSuccess() {
 	suite.NoError(err)
 	suite.Equal(uint(1), newId)
 
-	repo := repositories.NewOrderRespository(suite.db)
+	customerDS := new(MockCustomerRemoteDataSource)
+
+	repo := repositories.NewOrderRespository(suite.db, customerDS)
 	newOrder := dto.Order{
 		TotalPrice:   5090,
 		PaymentID:    uint(12),
@@ -389,7 +514,9 @@ func (suite *RepositoryTestSuite) TestGetOrdersWaitingPaymentSuccess() {
 	suite.NoError(err)
 	suite.Equal(uint(1), newId)
 
-	repo := repositories.NewOrderRespository(suite.db)
+	customerDS := new(MockCustomerRemoteDataSource)
+
+	repo := repositories.NewOrderRespository(suite.db, customerDS)
 	newOrder := dto.Order{
 		TotalPrice:   5090,
 		PaymentID:    uint(12),
@@ -434,7 +561,9 @@ func (suite *RepositoryTestSuite) TestUpdateToDoneSuccess() {
 	suite.NoError(err)
 	suite.Equal(uint(1), newId)
 
-	repo := repositories.NewOrderRespository(suite.db)
+	customerDS := new(MockCustomerRemoteDataSource)
+
+	repo := repositories.NewOrderRespository(suite.db, customerDS)
 	newOrder := dto.Order{
 		TotalPrice:   5090,
 		PaymentID:    uint(12),
@@ -478,7 +607,9 @@ func (suite *RepositoryTestSuite) TestUpdateToDeliveredSuccess() {
 	suite.NoError(err)
 	suite.Equal(uint(1), newId)
 
-	repo := repositories.NewOrderRespository(suite.db)
+	customerDS := new(MockCustomerRemoteDataSource)
+
+	repo := repositories.NewOrderRespository(suite.db, customerDS)
 	newOrder := dto.Order{
 		TotalPrice:   5090,
 		PaymentID:    uint(12),
@@ -522,7 +653,9 @@ func (suite *RepositoryTestSuite) TestUpdateToNotDeliveredSuccess() {
 	suite.NoError(err)
 	suite.Equal(uint(1), newId)
 
-	repo := repositories.NewOrderRespository(suite.db)
+	customerDS := new(MockCustomerRemoteDataSource)
+
+	repo := repositories.NewOrderRespository(suite.db, customerDS)
 	newOrder := dto.Order{
 		TotalPrice:   5090,
 		PaymentID:    uint(12),
@@ -549,7 +682,9 @@ func (suite *RepositoryTestSuite) TestGetNextTicketNumberSuccess() {
 	suite.NoError(result.Error)
 	suite.Empty(tickets)
 
-	repo := repositories.NewOrderRespository(suite.db)
+	customerDS := new(MockCustomerRemoteDataSource)
+
+	repo := repositories.NewOrderRespository(suite.db, customerDS)
 
 	date := time.Now().UnixMilli()
 
@@ -565,7 +700,9 @@ func (suite *RepositoryTestSuite) TestGetNextTicketNumberWithPlus1Success() {
 	suite.NoError(result.Error)
 	suite.Empty(tickets)
 
-	repo := repositories.NewOrderRespository(suite.db)
+	customerDS := new(MockCustomerRemoteDataSource)
+
+	repo := repositories.NewOrderRespository(suite.db, customerDS)
 
 	date := time.Now().UnixMilli()
 
