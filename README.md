@@ -159,7 +159,7 @@ The Fast food project uses `AWS Cloud` to host its software components. To know 
 ## Kubernetes
 
 This application has all the K8S YAMLs to be applied in any cluster. 
-To read the specific documentation, read: [Kubernetes README](https://github.com/thiagoluis88git/tech1-orders-k8sinfra/k8s/README.md)
+To read the specific documentation, read: [Kubernetes README](https://github.com/thiagoluis88git/tech1-k8s/blob/main/infra/k8s/README.md)
 
 ## Section 1 Restaurant owner
 

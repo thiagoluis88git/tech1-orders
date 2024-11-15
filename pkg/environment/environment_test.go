@@ -9,10 +9,6 @@ import (
 )
 
 func setup() {
-	os.Setenv(environment.CognitoClientID, "CognitoClientID")
-	os.Setenv(environment.CognitoGroupAdmin, "CognitoGroupAdmin")
-	os.Setenv(environment.CognitoGroupUser, "CognitoGroupUser")
-	os.Setenv(environment.CognitoUserPoolID, "CognitoUserPoolID")
 	os.Setenv(environment.DBHost, "DBHost")
 	os.Setenv(environment.DBPassword, "DBPassword")
 	os.Setenv(environment.DBName, "DBName")
@@ -39,10 +35,6 @@ func TestEnvironment(t *testing.T) {
 		t.Parallel()
 		environment.LoadEnvironmentVariables()
 
-		assert.Equal(t, "CognitoClientID", environment.GetCognitoClientID())
-		assert.Equal(t, "CognitoGroupAdmin", environment.GetCognitoGroupAdmin())
-		assert.Equal(t, "CognitoGroupUser", environment.GetCognitoGroupUser())
-		assert.Equal(t, "CognitoUserPoolID", environment.GetCognitoUserPoolID())
 		assert.Equal(t, "DBHost", environment.GetDBHost())
 		assert.Equal(t, "DBPassword", environment.GetDBPassword())
 		assert.Equal(t, "DBPort", environment.GetDBPort())
