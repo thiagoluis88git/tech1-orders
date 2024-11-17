@@ -14,10 +14,7 @@ func setup() {
 	os.Setenv(environment.DBName, "DBName")
 	os.Setenv(environment.DBPort, "DBPort")
 	os.Setenv(environment.DBUser, "DBUser")
-	os.Setenv(environment.QRCodeGatewayRootURL, "QRCodeGatewayRootURL")
-	os.Setenv(environment.QRCodeGatewayToken, "QRCodeGatewayToken")
 	os.Setenv(environment.Region, "Region")
-	os.Setenv(environment.WebhookMercadoLivrePaymentURL, "WebhookMercadoLivrePaymentURL")
 	os.Setenv(environment.CustomerRootAPI, "CustomerRootAPI")
 }
 
@@ -40,10 +37,7 @@ func TestEnvironment(t *testing.T) {
 		assert.Equal(t, "DBPort", environment.GetDBPort())
 		assert.Equal(t, "DBName", environment.GetDBName())
 		assert.Equal(t, "DBUser", environment.GetDBUser())
-		assert.Equal(t, "QRCodeGatewayRootURL", environment.GetQRCodeGatewayRootURL())
-		assert.Equal(t, "QRCodeGatewayToken", environment.GetQRCodeGatewayToken())
 		assert.Equal(t, "Region", environment.GetRegion())
-		assert.Equal(t, "WebhookMercadoLivrePaymentURL", environment.GetWebhookMercadoLivrePaymentURL())
 		assert.Equal(t, "CustomerRootAPI", environment.GetCustomerRootAPI())
 	})
 }
