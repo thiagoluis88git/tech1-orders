@@ -200,3 +200,16 @@ func (suite *RepositoryTestSuite) TestCreateProductWithConflictError() {
 	suite.Equal(true, errors.As(err, &businessError))
 	suite.Equal(responses.DATABASE_CONFLICT_ERROR, businessError.Code)
 }
+
+func (suite *RepositoryTestSuite) TestGetCategoriesWithSuccess() {
+	repo := repositories.NewProductRepository(suite.db)
+
+	categories := repo.GetCategories()
+	suite.Equal(5, len(categories))
+
+	suite.Equal(model.CategoryCombo, categories[0])
+	suite.Equal(model.CategorySnack, categories[1])
+	suite.Equal(model.CategoryBeverage, categories[2])
+	suite.Equal(model.CategoryToppings, categories[3])
+	suite.Equal(model.CategoryDesert, categories[4])
+}
