@@ -23,13 +23,10 @@ func TestEnvironment(t *testing.T) {
 	setup()
 
 	t.Run("got success when loading variables", func(t *testing.T) {
-		t.Parallel()
-
 		environment.LoadEnvironmentVariables()
 	})
 
 	t.Run("got success when initializing environment", func(t *testing.T) {
-		t.Parallel()
 		environment.LoadEnvironmentVariables()
 
 		assert.Equal(t, "DBHost", environment.GetDBHost())
