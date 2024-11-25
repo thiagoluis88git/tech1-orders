@@ -1,14 +1,16 @@
-# FastFood API - Description
+# Orders API - Description
 
 ## Table of Contents
 
 - [Table of Contents](#table-of-contents)
 - [Description](#description)
+  - [Microservices - Orders](#microservice---orders)
 - [Architecture](#architecture)
   - [DDD](#ddd)
   - [Clean Archtecture](#clean-archtecture)
 - [Design Patterns](#design-patterns)
 - [Unit Testing](#unit-testing)
+  - [BDD](#bdd)
 - [Docker build and run](#docker-build-and-run)
 - [How to use](#how-to-use)
   - [Check app status](#check-app-status)
@@ -36,7 +38,6 @@
   - [Postman collection](#postman-collection)
   - [Swagger](#swagger)
   - [Redoc](#redoc)
-- [Opportunities](#opportunities)
 
 ## Description
 
@@ -56,6 +57,16 @@ This projects only fits the Backend side, which means that customer needs to **c
 All the Endpoints can be called by accessing `http://localhost:3210/api` API url.
 
 To build and run this project. Follow the Docker section
+
+### Microservice - Orders
+
+The Project is divided in `3 microservices`. Each one has its own Database, logic and POD inside `EKS Cluster`. The microservices are:
+
+- Customer
+- Orders
+- Payment
+
+This Microservice is responsible for the `Orders` API. This microservice uses `Altas Mongo DB` to save its data.
 
 ## Architecture
 
@@ -96,7 +107,18 @@ To improve and make a good standard project pattern, some `Design Patterns` were
 To run all the Unit Testing for this project, just run:
 
 ```
-go test ./...
+go test -cover ./... -coverprofile="cover.out"
+go tool cover -func="cover.out"
+```
+
+### BDD
+
+Inside `bdd` folder, has an implementation of a BDD test. This test is made by a [Cucumber API](https://github.com/cucumber/godog).
+The **BDD** tests will be triggered when running the `go test ./...` in the previous step
+
+```
+go test -cover ./... -coverprofile="cover.out"
+go tool cover -func="cover.out"
 ```
 
 This will run all the **Services** unit tests and **Repository** unit Database tests running [Testcontainers](https://testcontainers.com/) database container mocks.
@@ -154,7 +176,7 @@ fastfood-app  | 2024/05/27 22:57:35 API Tech 1 has started
 
 ## AWS ##
 
-The Fast food project uses `AWS Cloud` to host its software components. To know more about the **AWS configuration**, read: [AWS Readme](https://github.com/thiagoluis88git/tech1-orders-k8s/infra/README.md)
+The Fast food project uses `AWS Cloud` to host its software components. To know more about the **AWS configuration**, read: [AWS Readme](https://github.com/thiagoluis88git/tech1-k8s/infra/README.md)
 
 ## Kubernetes
 
@@ -168,12 +190,12 @@ This section will be used by the restaurant owner to manage the restaurant produ
 ### 1 Product manipulation
 ***(Owner view)***
 
-- Cal the POST `http://localhost:3210/api/products` to create a Product
-- Cal the PUT `http://localhost:3210/api/products/{id}` to update a Product
-- Cal the GET `http://localhost:3210/api/products/{id}` to get a Product
-- Cal the GET `http://localhost:3210/api/products/categories` to list all Product Categories
-- Cal the GET `http://localhost:3210/api/products/categories/{category}` to list all Products by a category
-- Cal the DELETE `http://localhost:3210/api/products/{id}` to delete a Product
+- Cal the POST `http://localhost:4210/api/products` to create a Product
+- Cal the PUT `http://localhost:4210/api/products/{id}` to update a Product
+- Cal the GET `http://localhost:4210/api/products/{id}` to get a Product
+- Cal the GET `http://localhost:4210/api/products/categories` to list all Product Categories
+- Cal the GET `http://localhost:4210/api/products/categories/{category}` to list all Products by a category
+- Cal the DELETE `http://localhost:4210/api/products/{id}` to delete a Product
 
 With those endpoints we can follow to *Section 2* to start the ***Order flow***
 
@@ -185,43 +207,30 @@ This section will use all the Endpoints to make a entire order flow.
 ### 1 User identification
 ***(Customer view)***
 
-> [!IMPORTANT]
-> These endpoints have a CPF validation. So be aware that it is needed to pass a correct CPF number.
-
-> [!NOTE]  
-> The CPF does not need to be formatted.
-
-- Cal the POST `http://localhost:3210/api/customers` to create a Customer and retrieve the `[Customer ID]`
-
-- Call the POST `http://localhost:3210/api/customers/login` to login and get the Customer
-- Call the GET `http://localhost:3210/api/customers/{id}` to get the Customer by this `[Customer ID]`
-
-- Call the PUT `http://localhost:3210/api/customers/{id}` to update Customer
-
-We can use this site [CPF generator](https://www.4devs.com.br/gerador_de_cpf) to easly generate a new CPF whenever we need.
+See [Customer README]()
 
 ### 2 List all the categories
 ***(Customer view)***
 
-- Call the GET `http://localhost:3210/api/products/categories` to get a string array with all created categories
+- Call the GET `http://localhost:4210/api/products/categories` to get a string array with all created categories
 
 ### 3 List products by the chosen category
 ***(Customer view)***
 
-- Call the GET `http://localhost:3210/api/products/categories/{category}` to get all products by a category
+- Call the GET `http://localhost:4210/api/products/categories/{category}` to get all products by a category
 
 With this endpoints we can simulate a screen producst selection by chosing all products IDs we want to deal and create a Order
 
 ### 4 Pay the products amount
 ***(Customer view)***
 
-- Call the GET `http://localhost:3210/api/payments/types` to show to customer which payment type to choose
-- Call the POST `http://localhost:3210/api/payments` to pay for the amount and receive the `[Payment ID]`
+- Call the GET `http://localhost:4210/api/payments/types` to show to customer which payment type to choose
+- Call the POST `http://localhost:4210/api/payments` to pay for the amount and receive the `[Payment ID]`
 
 #### 4_1 Generate Mercado Livre QR Code ####
 ***(Customer view)***
 
-- Call the POST `http://localhost:3210/api/qrcode/generate` to get the `QR Code Data` to **transform** in Image to pay with `Mercado Pago App`. Must send the same **post body** as [5 create an order](#5-create-an-order) needs.
+- Call the POST `http://localhost:4210/api/qrcode/generate` to get the `QR Code Data` to **transform** in Image to pay with `Mercado Pago App`. Must send the same **post body** as [5 create an order](#5-create-an-order) needs.
 
 > [!WARNING]
 > Sometimes the **Mercado Livre** server returns `500 Internal Server Error` for unknown reason. The error returned by the server is: `{"error":"alias_obtainment_error","message":"Get aliases for user failed","status":500,"causes":[]}`. When this occurs, **IS NOT possible to proceed with QR Code Payment**. The main reason for this is on `Weekend the Mercado Livre development environment does not work`
@@ -240,7 +249,7 @@ When the server returns as expected, the response is like:
 ### 5 Create an order
 ***(Customer view)***
 
-- Call the POST `http://localhost:3210/api/orders` with:
+- Call the POST `http://localhost:4210/api/orders` with:
 - - All the `[Products IDs]` chosen [*required]
 - - The `[Payment ID]` [*required*]
 - - The `[Customer ID]` [*optional*]
@@ -249,7 +258,7 @@ When the server returns as expected, the response is like:
 ### 6 List orders to follow
 ***(Customer and Waiter)***
 
-- Call the GET `http://localhost:3210/api/orders/follow` to show a list of Orders to be followed by Customer and Waiter. This will list only, `CREATED`, `PREPARING` and `DONE`.
+- Call the GET `http://localhost:4210/api/orders/follow` to show a list of Orders to be followed by Customer and Waiter. This will list only, `CREATED`, `PREPARING` and `DONE`.
 This Endpoint will sort the orders wit these business rule:
  - - `DONE` 
  - - `PREPARING` 
@@ -340,46 +349,45 @@ This Endpoint will sort the orders wit these business rule:
 ```
 
 The order can also be followed by its ID:
-- Call the GET `http://localhost:3210/api/orders/{id}` to show a an Orders to be followed by Customer and Waiter
+- Call the GET `http://localhost:4210/api/orders/{id}` to show a an Orders to be followed by Customer and Waiter
 
 ### 7 List orders to prepare
 ***(Chef view)***
 
-- Call the GET `http://localhost:3210/api/orders/to-prepare` to list the Orders with its [Order ID]. This endpoint will be used by the **Chef**. This will list only `CREATED`
+- Call the GET `http://localhost:4210/api/orders/to-prepare` to list the Orders with its [Order ID]. This endpoint will be used by the **Chef**. This will list only `CREATED`
 
 ### 8 List orders waiting payment
 ***(Owner view)***
 
-- Call the GET `http://localhost:3210/api/orders/waiting-payment` to list the Orders with its [Order ID]. This endpoint will be used by the **Owner**. This will list only `PAYING`.
+- Call the GET `http://localhost:4210/api/orders/waiting-payment` to list the Orders with its [Order ID]. This endpoint will be used by the **Owner**. This will list only `PAYING`.
 
 This Endpoint can be used to see if the `Mercado Livre QR Code payment` was paid successfully 
 
 ### 9 Update order to preparing
 ***(Chef view)***
 
-- Call the PUT `http://localhost:3210/api/orders/{id}/preparing` to set Preparing status
+- Call the PUT `http://localhost:4210/api/orders/{id}/preparing` to set Preparing status
 
 ### 10 Update order to done
 ***(Chef view)***
 
-- Call the PUT `http://localhost:3210/api/orders/{id}/done` to set Done status
+- Call the PUT `http://localhost:4210/api/orders/{id}/done` to set Done status
 
 ### 11 Update order to delivered
 ***(Waiter view)***
 
-- Call the PUT `http://localhost:3210/api/orders/{id}/delivered` to set Delivered status to indicate that customer receive the meal. 
+- Call the PUT `http://localhost:4210/api/orders/{id}/delivered` to set Delivered status to indicate that customer receive the meal. 
 This is used to 'finish' the order and can be used to track some convertion rate
 
 ### 12 Update order to not delivered
 ***(Waiter view)***
 
-- Call the PUT `http://localhost:3210/api/orders/{id}/not-delivered` to set Not Delivered status to indicate that customer does not receive the meal.
+- Call the PUT `http://localhost:4210/api/orders/{id}/not-delivered` to set Not Delivered status to indicate that customer does not receive the meal.
 This is used to 'finish' the order and can be used to track some convertion rate
 
 ## Mercado Livre Webhook ##
 
-The Fast Food application can pay the order via QR Code. 
-This is a separate flow and can be read in: [Webhook Payment](internal/core/webhook/README.md)
+See [Payment README]()
 
 ## Documentation
 
@@ -401,15 +409,8 @@ In the root of this project we can find the file `postman_collection.json`. With
 
 ### Swagger
 
-http://localhost:3210/swagger/index.html
+http://localhost:4210/swagger/index.html
 
 ### Redoc
 
-http://localhost:3211/docs
-
-
-## Opportunities
-
-Even though this project was made by following some Design Patterns like `Use Case` and `Repository` it does not separate the Data Source from the Repository. In the future it will be good to use `Data Source` Pattern to separate **Local** and **Remote** from the Repository to make a better separation of concern principle.
-
-It will also a good opportunity to increase the `Unit Test` coverage.
+http://localhost:4211/docs
