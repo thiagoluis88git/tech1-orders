@@ -43,7 +43,7 @@ func (suite *RepositoryTestSuite) TestCreateOrderWithSuccess() {
 	repo := repositories.NewOrderRespository(suite.db, customerDS)
 	newOrder := dto.Order{
 		TotalPrice:   5090,
-		PaymentID:    uint(12),
+		PaymentID:    "wertr",
 		TicketNumber: 12,
 		OrderProduct: []dto.OrderProduct{
 			{
@@ -85,7 +85,7 @@ func (suite *RepositoryTestSuite) TestCreatePayingOrderWithSuccess() {
 	repo := repositories.NewOrderRespository(suite.db, customerDS)
 	newOrder := dto.Order{
 		TotalPrice:   5090,
-		PaymentID:    uint(12),
+		PaymentID:    "wertr",
 		TicketNumber: 12,
 		OrderProduct: []dto.OrderProduct{
 			{
@@ -127,7 +127,7 @@ func (suite *RepositoryTestSuite) TestDeleteOrderWithSuccess() {
 	repo := repositories.NewOrderRespository(suite.db, customerDS)
 	newOrder := dto.Order{
 		TotalPrice:   5090,
-		PaymentID:    uint(12),
+		PaymentID:    "wertr",
 		TicketNumber: 12,
 		OrderProduct: []dto.OrderProduct{
 			{
@@ -173,7 +173,7 @@ func (suite *RepositoryTestSuite) TestFinishOrderWithPaymentSuccess() {
 	repo := repositories.NewOrderRespository(suite.db, customerDS)
 	newOrder := dto.Order{
 		TotalPrice:   5090,
-		PaymentID:    uint(12),
+		PaymentID:    "wertr",
 		TicketNumber: 12,
 		OrderProduct: []dto.OrderProduct{
 			{
@@ -186,7 +186,7 @@ func (suite *RepositoryTestSuite) TestFinishOrderWithPaymentSuccess() {
 	suite.NoError(err)
 	suite.Equal(uint(1), orderResponse.OrderId)
 
-	err = repo.FinishOrderWithPayment(suite.ctx, orderResponse.OrderId, uint(3))
+	err = repo.FinishOrderWithPayment(suite.ctx, orderResponse.OrderId, "12345")
 	suite.NoError(err)
 }
 
@@ -221,7 +221,7 @@ func (suite *RepositoryTestSuite) TestGetOrderByIDSuccess() {
 	repo := repositories.NewOrderRespository(suite.db, customerDS)
 	newOrder := dto.Order{
 		TotalPrice:   5090,
-		PaymentID:    uint(12),
+		PaymentID:    "wertr",
 		TicketNumber: 12,
 		CPF:          &cpf,
 		OrderProduct: []dto.OrderProduct{
@@ -272,7 +272,7 @@ func (suite *RepositoryTestSuite) TestGetOrderByIDWithoutCustomerSuccess() {
 	repo := repositories.NewOrderRespository(suite.db, customerDS)
 	newOrder := dto.Order{
 		TotalPrice:   5090,
-		PaymentID:    uint(12),
+		PaymentID:    "wertr",
 		TicketNumber: 12,
 		OrderProduct: []dto.OrderProduct{
 			{
@@ -320,7 +320,7 @@ func (suite *RepositoryTestSuite) TestGetOrderByIDWithUnknownIDError() {
 	repo := repositories.NewOrderRespository(suite.db, customerDS)
 	newOrder := dto.Order{
 		TotalPrice:   5090,
-		PaymentID:    uint(12),
+		PaymentID:    "wertr",
 		TicketNumber: 12,
 		OrderProduct: []dto.OrderProduct{
 			{
@@ -369,7 +369,7 @@ func (suite *RepositoryTestSuite) TestGetOrdersToPrepareSuccess() {
 	repo := repositories.NewOrderRespository(suite.db, customerDS)
 	newOrder := dto.Order{
 		TotalPrice:   5090,
-		PaymentID:    uint(12),
+		PaymentID:    "wertr",
 		CPF:          &cpf,
 		TicketNumber: 12,
 
@@ -421,7 +421,7 @@ func (suite *RepositoryTestSuite) TestGetOrdersToPrepareWithoutCustomerSuccess()
 	repo := repositories.NewOrderRespository(suite.db, customerDS)
 	newOrder := dto.Order{
 		TotalPrice:   5090,
-		PaymentID:    uint(12),
+		PaymentID:    "wertr",
 		TicketNumber: 12,
 		OrderProduct: []dto.OrderProduct{
 			{
@@ -469,7 +469,7 @@ func (suite *RepositoryTestSuite) TestGetOrdersToFollowSuccess() {
 	repo := repositories.NewOrderRespository(suite.db, customerDS)
 	newOrder := dto.Order{
 		TotalPrice:   5090,
-		PaymentID:    uint(12),
+		PaymentID:    "wertr",
 		TicketNumber: 12,
 		OrderProduct: []dto.OrderProduct{
 			{
@@ -519,7 +519,7 @@ func (suite *RepositoryTestSuite) TestGetOrdersWaitingPaymentSuccess() {
 	repo := repositories.NewOrderRespository(suite.db, customerDS)
 	newOrder := dto.Order{
 		TotalPrice:   5090,
-		PaymentID:    uint(12),
+		PaymentID:    "wertr",
 		TicketNumber: 12,
 		OrderProduct: []dto.OrderProduct{
 			{
@@ -566,7 +566,7 @@ func (suite *RepositoryTestSuite) TestUpdateToDoneSuccess() {
 	repo := repositories.NewOrderRespository(suite.db, customerDS)
 	newOrder := dto.Order{
 		TotalPrice:   5090,
-		PaymentID:    uint(12),
+		PaymentID:    "wertr",
 		TicketNumber: 12,
 		OrderProduct: []dto.OrderProduct{
 			{
@@ -612,7 +612,7 @@ func (suite *RepositoryTestSuite) TestUpdateToDeliveredSuccess() {
 	repo := repositories.NewOrderRespository(suite.db, customerDS)
 	newOrder := dto.Order{
 		TotalPrice:   5090,
-		PaymentID:    uint(12),
+		PaymentID:    "wertr",
 		TicketNumber: 12,
 		OrderProduct: []dto.OrderProduct{
 			{
@@ -658,7 +658,7 @@ func (suite *RepositoryTestSuite) TestUpdateToNotDeliveredSuccess() {
 	repo := repositories.NewOrderRespository(suite.db, customerDS)
 	newOrder := dto.Order{
 		TotalPrice:   5090,
-		PaymentID:    uint(12),
+		PaymentID:    "wertr",
 		TicketNumber: 12,
 		OrderProduct: []dto.OrderProduct{
 			{

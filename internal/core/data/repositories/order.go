@@ -125,7 +125,7 @@ func (repository *OrderRespository) DeleteOrder(ctx context.Context, orderID uin
 	return nil
 }
 
-func (repository *OrderRespository) FinishOrderWithPayment(ctx context.Context, orderID uint, paymentID uint) error {
+func (repository *OrderRespository) FinishOrderWithPayment(ctx context.Context, orderID uint, paymentID string) error {
 	err := repository.db.Connection.WithContext(ctx).
 		Model(&model.Order{}).
 		Where("id = ?", orderID).
