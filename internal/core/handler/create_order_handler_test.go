@@ -20,7 +20,7 @@ import (
 func mockOrder() dto.Order {
 	return dto.Order{
 		TotalPrice: 123.34,
-		PaymentID:  uint(4),
+		PaymentID:  "wertr",
 		OrderProduct: []dto.OrderProduct{
 			{
 				ProductID:    1,

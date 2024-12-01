@@ -11,7 +11,7 @@ import (
 var (
 	orderCreation = dto.Order{
 		TotalPrice:   12345,
-		PaymentID:    uint(1),
+		PaymentID:    "wertr",
 		TicketNumber: 1,
 		OrderProduct: []dto.OrderProduct{
 			{
@@ -26,7 +26,7 @@ var (
 
 	orderCreationWithCustomer = dto.Order{
 		TotalPrice:   12345,
-		PaymentID:    uint(1),
+		PaymentID:    "wertr",
 		TicketNumber: 1,
 		CPF:          &cpf,
 		OrderProduct: []dto.OrderProduct{
@@ -92,17 +92,6 @@ var (
 				},
 			},
 		},
-	}
-
-	paymentCreation = dto.Payment{
-		TotalPrice:  1234,
-		PaymentType: "Crédito",
-	}
-
-	paymentResponse = dto.PaymentResponse{
-		PaymentId:        1,
-		PaymentGatewayId: "123",
-		PaymentDate:      time.Date(2024, 10, 10, 0, 0, 0, 0, time.Local),
 	}
 
 	productCreation = dto.ProductForm{
@@ -247,7 +236,7 @@ func (mock *MockOrderRepository) DeleteOrder(ctx context.Context, orderID uint) 
 	return nil
 }
 
-func (mock *MockOrderRepository) FinishOrderWithPayment(ctx context.Context, orderID uint, paymentID uint) error {
+func (mock *MockOrderRepository) FinishOrderWithPayment(ctx context.Context, orderID uint, paymentID string) error {
 	args := mock.Called(ctx, orderID, paymentID)
 	err := args.Error(0)
 

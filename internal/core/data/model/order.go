@@ -19,7 +19,7 @@ type Order struct {
 	gorm.Model
 	OrderStatus    string
 	TotalPrice     float64
-	PaymentID      uint
+	PaymentID      string
 	CPF            *string
 	TicketNumber   int
 	PreparingAt    *time.Time

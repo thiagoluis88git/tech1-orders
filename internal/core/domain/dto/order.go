@@ -6,7 +6,7 @@ type Order struct {
 	OrderStatus  string
 	TotalPrice   float64        `json:"totalPrice" validate:"required"`
 	CPF          *string        `json:"cpf"`
-	PaymentID    uint           `json:"paymentId" validate:"required"`
+	PaymentID    string         `json:"paymentId" validate:"required"`
 	OrderProduct []OrderProduct `json:"orderProducts" validate:"required"`
 	TicketNumber int
 }
