@@ -207,7 +207,7 @@ This section will use all the Endpoints to make a entire order flow.
 ### 1 User identification
 ***(Customer view)***
 
-See [Customer README]()
+See [Customer README](https://github.com/thiagoluis88git/tech1-customer/blob/main/README.md)
 
 ### 2 List all the categories
 ***(Customer view)***
@@ -387,7 +387,7 @@ This is used to 'finish' the order and can be used to track some convertion rate
 
 ## Mercado Livre Webhook ##
 
-See [Payment README]()
+See [Payment README](https://github.com/thiagoluis88git/tech1-payment/blob/main/README.md)
 
 ## Documentation
 
